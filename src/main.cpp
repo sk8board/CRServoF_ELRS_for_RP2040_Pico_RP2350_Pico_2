@@ -1,7 +1,6 @@
 #include <Arduino.h>
 #include <CrsfSerial.h>  // https://github.com/CapnBry/CRServoF/
 #include <Servo.h>
-#include "calibration.h"
 #include "board_defs.h"
 
 // BOARD_ID SELECTION HAPPENS IN PLATFORMIO ENVIRONMENT SELECTION
@@ -46,12 +45,6 @@ int channel11_data;
 int channel12_data;
 */
 
-btn_config *c;
-
- /**
- * This callback is called whenever new channel values are available.
- * Use crsf.getChannel(x) to get us channel values (1-16).
- **/
 
 void packetChannels()
 {
