@@ -2,6 +2,12 @@
 
 NOTE: This project is a work in progress for Raspberry Pi microprocessor RP2040 boards like the Pico. This project does not support other microprocessors.
 
+NOTE: This project was performed using Visual Studio with Platform IO for Linux. If you are using the Windows version, then you will need to follow these instuctions to get this project to work with Visual Studio/Platform IO for Windows.
+
+https://arduino-pico.readthedocs.io/en/latest/platformio.html#important-steps-for-windows-users-before-installing
+
+## Scope
+
 CRServoF for RP2040 Pico is an RC receiver project for RC surface models that use ExpressLRS and EdgeTX.
 
 This RC receiver has 6 PWM servo channels and 6 LED channels. EdgeTX will allow the user to customize how the LED channels can be used on the RC model
