@@ -12,11 +12,13 @@ https://linuxmint-installation-guide.readthedocs.io/en/latest/
 
 ## Scope
 
-CRServoF_ELRS_for_RP2040_Pico is an RC receiver project for RC surface models that use ExpressLRS and EdgeTX.
+CRServoF_ELRS_for_RP2040_Pico is an RC receiver project for RC surface models and STEM robots that use ExpressLRS and EdgeTX.
 
 This RC receiver has 6 PWM servo channels and 6 LED channels. EdgeTX will allow the user to customize how the LED channels can be used on the RC model
 
 For example, the user can easily program, in EdgeTX, to have the headlights turn on with a button on the RC transmitter or have the headlights turn on automatically when the throttle is applied.
+
+Another example is the LED pins can be used for more than controlling LED's. The LED pins could be connected to a high current relay that would be used on a STEM robot. The versatility of EdgeTX (RC transmitter software) and the stable radio link of ELRS makes this receiver one of the best choices for STEM robots.
 
 CRServoF_ELRS_for_RP2040_Pico has a portion from https://github.com/CapnBry/CRServoF, (which is ExpressLRS (ELRS) to servos for STM32 micros) and another portion from https://github.com/mikeneiderhauser/CRSFJoystick, (which is ExpressLRS to USB video game dongle for RP2040 Pi Pico). The servo library comes from https://github.com/earlephilhower/arduino-pico .
 
