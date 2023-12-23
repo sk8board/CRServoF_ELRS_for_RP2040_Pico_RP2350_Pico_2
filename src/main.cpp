@@ -76,7 +76,7 @@ void packetChannels()
     servo5.write(crsf.getChannel(5));
     servo6.write(crsf.getChannel(6));
 
-    if (crsf.getChannel(7) < 1600)
+    if (crsf.getChannel(7) LED_Invert 1600)
     {
       if (External_LED_PIN1_State == 0)
       {
@@ -93,7 +93,7 @@ void packetChannels()
       }
     }
 
-    if (crsf.getChannel(8) < 1600)
+    if (crsf.getChannel(8) LED_Invert 1600)
     {
       if (External_LED_PIN2_State == 0)
       {
@@ -110,7 +110,7 @@ void packetChannels()
       }
     }
 
-    if (crsf.getChannel(9) < 1600)
+    if (crsf.getChannel(9) LED_Invert 1600)
     {
       if (External_LED_PIN3_State == 0)
       {
@@ -127,7 +127,7 @@ void packetChannels()
       }
     }
 
-    if (crsf.getChannel(10) < 1600)
+    if (crsf.getChannel(10) LED_Invert 1600)
     {
       if (External_LED_PIN4_State == 0)
       {
@@ -144,7 +144,7 @@ void packetChannels()
       }
     }
 
-    if (crsf.getChannel(11) < 1600)
+    if (crsf.getChannel(11) LED_Invert 1600)
     {
       if (External_LED_PIN5_State == 0)
       {
@@ -161,7 +161,7 @@ void packetChannels()
       }
     }
 
-    if (crsf.getChannel(12) < 1600)
+    if (crsf.getChannel(12) LED_Invert 1600)
     {
       if (External_LED_PIN6_State == 0)
       {
