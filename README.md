@@ -6,6 +6,10 @@ NOTE: This project was performed using Visual Studio with Platform IO for Linux.
 
 https://arduino-pico.readthedocs.io/en/latest/platformio.html#important-steps-for-windows-users-before-installing
 
+If you don't want to bother with the recommended Windows configuration, then try the dual boot function of Linux Mint MATE. I did not like Linux Ubuntu, but I tried Linux Mint MATE and was hooked. Linux Mint MATE is easy and fast.
+
+https://linuxmint-installation-guide.readthedocs.io/en/latest/
+
 ## Scope
 
 CRServoF for RP2040 Pico is an RC receiver project for RC surface models that use ExpressLRS and EdgeTX.
