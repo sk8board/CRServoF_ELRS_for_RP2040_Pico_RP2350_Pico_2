@@ -21,6 +21,7 @@
     #define PWM_PIN5 17  //GP17, ELRS Channel 5
     #define PWM_PIN6 16  //GP16, ELRS Channel 6
 
+    #define LED_Invert >  // Change > or < to invert the LED operation
     #define External_LED_PIN1 10  //GP10, ELRS Channel 7
     #define External_LED_PIN2 11  //GP11, ELRS Channel 8
     #define External_LED_PIN3 12  //GP12, ELRS Channel 9
@@ -59,6 +60,7 @@
     #define PWM_PIN5 6  //GP6, ELRS Channel 5
     #define PWM_PIN6 7  //GP7, ELRS Channel 6
 
+    #define LED_Invert >  // Change > or < to invert the LED operation
     #define External_LED_PIN1 29 //GP29, ELRS Channel 7
     #define External_LED_PIN2 28 //GP28, ELRS Channel 8
     #define External_LED_PIN3 27 //GP27, ELRS Channel 9
@@ -101,6 +103,7 @@
     #define PWM_PIN5 15  //GPIO 15, ELRS Channel 5
     #define PWM_PIN6 14  //GPIO 14, ELRS Channel 6
 
+    #define LED_Invert >  // Change > or < to invert the LED operation
     #define External_LED_PIN1 2  //GPIO 2 ELRS Channel 7
     #define External_LED_PIN2 3  //GPIO 3 ELRS Channel 8
     #define External_LED_PIN3 4  //GPIO 4 ELRS Channel 9
@@ -150,6 +153,7 @@
     #define PWM_PIN5 6   //GP6,  ELRS Channel 5
     #define PWM_PIN6 7   //GP7,  ELRS Channel 6
 
+    #define LED_Invert >  // Change > or < to invert the LED operation
     #define External_LED_PIN1 2   //GP2, ELRS Channel 7
     #define External_LED_PIN2 3   //GP3, ELRS Channel 8
     #define External_LED_PIN3 4   //GP4, ELRS Channel 9
