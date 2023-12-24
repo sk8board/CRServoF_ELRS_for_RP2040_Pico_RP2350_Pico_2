@@ -36,4 +36,4 @@ ULN2003A transistor array. Functions as a switch with up to 0.5 amp maximum capa
 
 Male header pins, which are typically used for RC servos.
 
-3D printed case
+[3D printed case](https://cad.onshape.com/documents/49e58140c1f2b9d9e9a1d4fe/w/d9ae141b1a74f2ec24c053d8/e/e737a1442b733880049387d5)
