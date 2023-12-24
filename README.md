@@ -23,3 +23,15 @@ CRServoF_ELRS_for_RP2040_Pico has a portion from https://github.com/CapnBry/CRSe
 
 
 ![ELRS Surface Model Receiver](https://github.com/sk8board/CRServoF_for_RP2040_Pico/assets/96895142/b1e93c88-700e-4dc2-9b81-6335b5a790af)
+
+## BOM
+
+Waveshare RP2040 Zero. Other types of RP2040 microprocessor boards can be used, but you will need to modify the include file with information that is specific to your board.
+
+HappyModel EP2 receiver. Other types of ExpressLRS (ELRS) receivers can be used. EP2 is a good choice if a small size is required for your project.
+
+ULN2003A transistor array. Functions as a switch with up to 0.5 amp maximum capacity.
+
+16 x 13 hole circuit board, with typical 0.1-inch hole spacing.
+
+Male header pins, which are typically used for RC servos.
