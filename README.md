@@ -35,3 +35,5 @@ ULN2003A transistor array. Functions as a switch with up to 0.5 amp maximum capa
 16 x 13 hole circuit board, with typical 0.1-inch hole spacing.
 
 Male header pins, which are typically used for RC servos.
+
+3D printed case
