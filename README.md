@@ -20,9 +20,7 @@ Another example is the LED pins can be used for more than controlling LED's. The
 
 CRServoF_ELRS_for_RP2040_Pico has a portion from https://github.com/CapnBry/CRServoF, (which is ExpressLRS (ELRS) to servos for STM32 micros) and another portion from https://github.com/mikeneiderhauser/CRSFJoystick, (which is ExpressLRS to USB video game dongle for RP2040 Pi Pico). The servo library comes from https://github.com/earlephilhower/arduino-pico .
 
-
-![ELRS Pico Receiver](https://github.com/sk8board/CRServoF_ELRS_for_RP2040_Pico/assets/96895142/35d4f456-8144-4322-8a4c-3ed49435bfdc)
-
+![ELRS Pico Receiver](https://github.com/sk8board/CRServoF_ELRS_for_RP2040_Pico/assets/96895142/c6fe0ac9-0438-4121-bc42-f2b662a814d6)
 
 ## BOM
 
@@ -32,7 +30,7 @@ HappyModel EP2 receiver. Other types of ExpressLRS (ELRS) receivers can be used.
 
 ULN2003A transistor array. Functions as a switch with up to 0.5 amp maximum capacity.
 
-16 x 13 hole circuit board, with typical 0.1-inch hole spacing.
+17 x 13 hole circuit board, with typical 0.1-inch hole spacing.
 
 Male header pins, which are typically used for RC servos.
 
