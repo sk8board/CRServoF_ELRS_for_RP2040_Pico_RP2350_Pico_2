@@ -202,4 +202,41 @@
     
 #endif
 
+// PiPico_W
+#if BOARD_ID == 5
+    #define UART_SELECT Serial2
+    #define CRSF_TX 4  // physical 6 (UART1 == Serial2)
+    #define CRSF_RX 5  // physical 7 (UART1 == Serial2)
+
+    #define LED_TYPE LED_TYPE_SINGLE
+    #define LED_PIN 6  // Need to install an external LED since Pico W internal LED is difficult to access.
+
+    #define PWM_PIN1 21  //GP21, ELRS Channel 1
+    #define PWM_PIN2 20  //GP20, ELRS Channel 2
+    #define PWM_PIN3 19  //GP19, ELRS Channel 3
+    #define PWM_PIN4 18  //GP18, ELRS Channel 4
+    #define PWM_PIN5 17  //GP17, ELRS Channel 5
+    #define PWM_PIN6 16  //GP16, ELRS Channel 6
+
+    #define LED_Invert >  // Change > or < to invert the LED operation
+    #define External_LED_PIN1 10  //GP10, ELRS Channel 7
+    #define External_LED_PIN2 11  //GP11, ELRS Channel 8
+    #define External_LED_PIN3 12  //GP12, ELRS Channel 9
+    #define External_LED_PIN4 13  //GP13, ELRS Channel 10
+    #define External_LED_PIN5 14  //GP14, ELRS Channel 11
+    #define External_LED_PIN6 15  //GP15, ELRS Channel 12
+
+    void boardSetup() {
+      pinMode(LED_PIN,OUTPUT);
+    }
+
+    void led_off() {
+      digitalWrite(LED_PIN, LOW);
+    }
+    
+    void led_on() {
+      digitalWrite(LED_PIN, HIGH);
+    }
+#endif
+
 #endif
