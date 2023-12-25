@@ -21,8 +21,8 @@ Another example is the LED pins can be used for more than controlling LED's. The
 CRServoF_ELRS_for_RP2040_Pico has a portion from https://github.com/CapnBry/CRServoF, (which is ExpressLRS (ELRS) to servos for STM32 micros) and another portion from https://github.com/mikeneiderhauser/CRSFJoystick, (which is ExpressLRS to USB video game dongle for RP2040 Pi Pico). The servo library comes from https://github.com/earlephilhower/arduino-pico .
 
 
+![ELRS Pico Receiver](https://github.com/sk8board/CRServoF_ELRS_for_RP2040_Pico/assets/96895142/35d4f456-8144-4322-8a4c-3ed49435bfdc)
 
-![ELRS Surface Model Receiver](https://github.com/sk8board/CRServoF_for_RP2040_Pico/assets/96895142/b1e93c88-700e-4dc2-9b81-6335b5a790af)
 
 ## BOM
 
