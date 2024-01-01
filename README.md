@@ -38,7 +38,7 @@ Male header pins, which are typically used for RC servos.
 
 ## Failsafe
 
-I have asked support from the ExpressLRS team to give the user the ability to adjust failsafe settings by using the ELRS [WebUI](https://www.expresslrs.org/hardware/pwm-receivers/?#channel-mapping-and-failsafe) function, which is already available in ELRS PWM receivers. If you would like the ability to easily adjust failsafe, then please add your comments to this [feature request](https://github.com/ExpressLRS/ExpressLRS/discussions/2514). 
+I have asked for support from the ExpressLRS team to give the user the ability to adjust failsafe settings by using the ELRS [WebUI](https://www.expresslrs.org/hardware/pwm-receivers/?#channel-mapping-and-failsafe) function, which is already available in ELRS PWM receivers. If you would like the ability to easily adjust failsafe, then please add your comments to this [feature request](https://github.com/ExpressLRS/ExpressLRS/discussions/2514). 
 
 Until the feature request has been implemented, you will need to adjusting failsafe using the procedure below.
 
