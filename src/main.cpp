@@ -30,6 +30,27 @@ bool External_LED_PIN4_State;
 bool External_LED_PIN5_State;
 bool External_LED_PIN6_State;
 
+
+// Failsafe declaration and function
+void failsafe_output();
+
+void failsafe_output() {
+  servo1.write(Failsafe_CH1_Value);
+  servo2.write(Failsafe_CH2_Value);
+  servo3.write(Failsafe_CH3_Value);
+  servo4.write(Failsafe_CH4_Value);
+  servo5.write(Failsafe_CH5_Value);
+  servo6.write(Failsafe_CH6_Value);
+  gpio_put(External_LED_PIN1, Failsafe_CH7_Value);
+  gpio_put(External_LED_PIN2, Failsafe_CH8_Value);
+  gpio_put(External_LED_PIN3, Failsafe_CH9_Value);
+  gpio_put(External_LED_PIN4, Failsafe_CH10_Value);
+  gpio_put(External_LED_PIN5, Failsafe_CH11_Value);
+  gpio_put(External_LED_PIN6, Failsafe_CH12_Value);
+}
+
+
+
 /*// for testing only
 int channel1_data;
 int channel2_data;
@@ -191,6 +212,7 @@ void crsfLinkDown() {
   ms_last_led_changed = ms_last_link_changed;
   led_state = false;
   led_off();
+  failsafe_output();
 }
 
 static void passthroughBegin(uint32_t baud)
@@ -376,6 +398,7 @@ void setup()
     crsf.onOobData = &crsfOobData;
     crsf.begin();
     serialEcho = true;
+
     gpio_init (External_LED_PIN1); 
     gpio_init (External_LED_PIN2);
     gpio_init (External_LED_PIN3);

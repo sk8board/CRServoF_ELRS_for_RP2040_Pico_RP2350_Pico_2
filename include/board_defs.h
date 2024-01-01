@@ -5,6 +5,20 @@
 #define LED_TYPE_NEOPIXEL 2
 #define LED_TYPE_RGB 3
 
+// Failsafe values
+#define Failsafe_CH1_Value 1500                // Failsafe servo value
+#define Failsafe_CH2_Value 1500                // Failsafe servo value
+#define Failsafe_CH3_Value 1500                // Failsafe servo value
+#define Failsafe_CH4_Value 1500                // Failsafe servo value
+#define Failsafe_CH5_Value 1500                // Failsafe servo value
+#define Failsafe_CH6_Value 1500                // Failsafe servo value
+#define Failsafe_CH7_Value LOW                 // Failsafe Digital Switch/LED value
+#define Failsafe_CH8_Value LOW                 // Failsafe Digital Switch/LED value
+#define Failsafe_CH9_Value LOW                 // Failsafe Digital Switch/LED value
+#define Failsafe_CH10_Value LOW                // Failsafe Digital Switch/LED value
+#define Failsafe_CH11_Value LOW                // Failsafe Digital Switch/LED value
+#define Failsafe_CH12_Value LOW                // Failsafe Digital Switch/LED value
+
 // PiPico
 #if BOARD_ID == 1
     #define UART_SELECT Serial2
