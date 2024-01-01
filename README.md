@@ -35,3 +35,27 @@ ULN2003A transistor array. Functions as a switch with up to 0.5 amp maximum capa
 Male header pins, which are typically used for RC servos.
 
 [3D printed case](https://cad.onshape.com/documents/49e58140c1f2b9d9e9a1d4fe/w/d9ae141b1a74f2ec24c053d8/e/e737a1442b733880049387d5)
+
+## Failsafe
+
+I am requesting the ExpressLRS team to allow the user to adjust failsafe setting by using the ELRS [WebUI](https://www.expresslrs.org/hardware/pwm-receivers/?#channel-mapping-and-failsafe) function which is already available in ELRS PWM receivers. If you would like this function, then please add your comments to this [feature request](https://github.com/ExpressLRS/ExpressLRS/discussions/2514). 
+
+Until the feature request has been implemented, you will need to adjusting failsafe using the proceedure below.
+
+The default failsafe values are found in the include file, board_defs.h.
+
+If you would like different failsafe values, simply edit the include file, then build the new firmware.uf2 file.
+
+`// Failsafe values`
+`#define Failsafe_CH1_Value 1500                // Failsafe servo value`
+`#define Failsafe_CH2_Value 1500                // Failsafe servo value`
+`#define Failsafe_CH3_Value 1500                // Failsafe servo value`
+`#define Failsafe_CH4_Value 1500                // Failsafe servo value`
+`#define Failsafe_CH5_Value 1500                // Failsafe servo value`
+`#define Failsafe_CH6_Value 1500                // Failsafe servo value`
+`#define Failsafe_CH7_Value LOW                 // Failsafe Digital Switch/LED value`
+`#define Failsafe_CH8_Value LOW                 // Failsafe Digital Switch/LED value`
+`#define Failsafe_CH9_Value LOW                 // Failsafe Digital Switch/LED value`
+`#define Failsafe_CH10_Value LOW                // Failsafe Digital Switch/LED value`
+`#define Failsafe_CH11_Value LOW                // Failsafe Digital Switch/LED value`
+`#define Failsafe_CH12_Value LOW                // Failsafe Digital Switch/LED value`
