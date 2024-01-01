@@ -38,7 +38,7 @@ Male header pins, which are typically used for RC servos.
 
 ## Failsafe
 
-I have asked of the ExpressLRS team to give the user the ability to adjust failsafe settings by using the ELRS [WebUI](https://www.expresslrs.org/hardware/pwm-receivers/?#channel-mapping-and-failsafe) function, which is already available in ELRS PWM receivers. If you would like the ability to easily adjust failsafe, then please add your comments to this [feature request](https://github.com/ExpressLRS/ExpressLRS/discussions/2514). 
+I have asked support from the ExpressLRS team to give the user the ability to adjust failsafe settings by using the ELRS [WebUI](https://www.expresslrs.org/hardware/pwm-receivers/?#channel-mapping-and-failsafe) function, which is already available in ELRS PWM receivers. If you would like the ability to easily adjust failsafe, then please add your comments to this [feature request](https://github.com/ExpressLRS/ExpressLRS/discussions/2514). 
 
 Until the feature request has been implemented, you will need to adjusting failsafe using the procedure below.
 
@@ -48,4 +48,10 @@ If you would like different failsafe values, simply edit the include file, then 
 
 ![image](https://github.com/sk8board/CRServoF_ELRS_for_RP2040_Pico/assets/96895142/a28e3b99-f194-4c22-b3fa-ff9a471b743c)
 
+## Board Pinout
 
+PWM pins, LED pins, and UART pins are defined in the include file, `board_defs.h`. 
+
+For example, for the Pi Pico, the pins are defined as the values shown in the red boxes below.
+
+![image](https://github.com/sk8board/CRServoF_ELRS_for_RP2040_Pico/assets/96895142/a3cba775-a492-4132-90be-b17d692b757b)
