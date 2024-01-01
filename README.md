@@ -42,9 +42,9 @@ I have asked of the ExpressLRS team to give the user the ability to adjust fails
 
 Until the feature request has been implemented, you will need to adjusting failsafe using the proceedure below.
 
-The default failsafe values are found in the include file, board_defs.h.
+The default failsafe values are found in the include file, `board_defs.h`.
 
-If you would like different failsafe values, simply edit the include file, then build the new firmware.uf2 file.
+If you would like different failsafe values, simply edit the include file, then build the new `firmware.uf2` file.
 
 `// Failsafe values`
 
