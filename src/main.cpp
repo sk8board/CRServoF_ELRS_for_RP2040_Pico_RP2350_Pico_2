@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <CrsfSerial.h>  // https://github.com/CapnBry/CRServoF/
-#include <Servo.h>       // https://guthub.com/earlephilhower/
+#include <Servo.h>       // https://guthub.com/earlephilhower/arduino-pico
 #include "board_defs.h"
 
 // BOARD_ID SELECTION HAPPENS IN PLATFORMIO ENVIRONMENT SELECTION
