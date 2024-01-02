@@ -28,7 +28,7 @@ This project is a work in progress and has not been tested on all of the followi
 
 ## BOM
 
-Waveshare RP2040 Zero. Other types of RP2040 microprocessor boards can be used, but you will need to modify the include file with information that is specific to your board.
+Waveshare RP2040 Zero. Other types of RP2040 microprocessor boards can be used. Please reference the Board Pinout section below for your board.
 
 HappyModel EP2 receiver. Other types of ExpressLRS (ELRS) receivers can be used. EP2 is a good choice if a small size is required for your project.
 
