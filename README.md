@@ -4,7 +4,7 @@ NOTE: This project is a work in progress for Raspberry Pi microprocessor RP2040 
 
 NOTE: This project was performed using Visual Studio with Platform IO for Linux. If you are using the Windows version, then you will need to [follow these instructions](https://arduino-pico.readthedocs.io/en/latest/platformio.html#important-steps-for-windows-users-before-installing) to get this project to work with Visual Studio/Platform IO for Windows.
 
-If you don't want to bother with the recommended Windows configuration, then try the dual boot function of Linux Mint MATE. I did not like Linux Ubuntu, but I tried Linux Mint MATE and was hooked. [Linux Mint Mate](https://linuxmint-installation-guide.readthedocs.io/en/latest/) is easy and fast.
+If you don't want to bother with the recommended Windows configuration, then try the dual boot function of Linux Mint MATE. I did not like Linux Ubuntu, but after I tried Linux Mint MATE, I was hooked. [Linux Mint Mate](https://linuxmint-installation-guide.readthedocs.io/en/latest/) is easy and fast.
 
 ## Scope
 
@@ -14,13 +14,17 @@ This RC receiver has 6 PWM servo channels and 6 LED channels. EdgeTX will allow 
 
 For example, the user can easily program, in EdgeTX, to have the headlights turn on with a button on the RC transmitter or have the headlights turn on automatically when the throttle is applied.
 
-Another example is the LED pins can be used for more than controlling LED's. The LED pins could be connected to a high current relay that would be used on a STEM robot. The versatility of EdgeTX (RC transmitter software) and the stable radio link of ELRS makes this receiver one of the best choices for STEM robots.
+Another example is the LED pins could be connected to a high current relay that would be used on a STEM robot. The versatility of EdgeTX (RC transmitter software) and the stable radio link of ELRS makes this receiver one of the best choices for STEM robots.
 
 [Here are RC transmitters](https://www.radiomasterrc.com/collections/transmitter) that work with ExpressLRS (ELRS).
 
 CRServoF_ELRS_for_RP2040_Pico has a portion from https://github.com/CapnBry/CRServoF, (which is ExpressLRS (ELRS) to servos for STM32 micros) and another portion from https://github.com/mikeneiderhauser/CRSFJoystick, (which is ExpressLRS to USB video game dongle for RP2040 Pi Pico). The servo library comes from https://github.com/earlephilhower/arduino-pico .
 
 ![ELRS Pico Receiver](https://github.com/sk8board/CRServoF_ELRS_for_RP2040_Pico/assets/96895142/c6fe0ac9-0438-4121-bc42-f2b662a814d6)
+
+## Firmware
+
+This project is a work in progress and has not been tested on all of the following devices. Therefore, please use with caution. If you want to use this software in the current state without compling, then the `firmware.uf2` files can be found here for [Pi Pico](.pio/build/pico),  [Pi Pico W](.pio/build/pico_w),  [Seeed XAIO RP2040](.pio/build/seeedxaio2040),  [Tiny 2040](.pio/build/tiny2040), and  [Waveshare RP2040-Zero](.pio/build/wavesharerp2040zero).
 
 ## BOM
 
@@ -38,7 +42,7 @@ Male header pins, which are typically used for RC servos.
 
 ## Failsafe
 
-I have asked for support from the ExpressLRS team to give the user the ability to adjust failsafe settings by using the ELRS [WebUI](https://www.expresslrs.org/hardware/pwm-receivers/?#channel-mapping-and-failsafe) function, which is already available in ELRS PWM receivers. If you would like the ability to easily adjust failsafe, then please add your comments to this [feature request](https://github.com/ExpressLRS/ExpressLRS/discussions/2514). 
+I have asked for support from the ExpressLRS team to give the end user the ability to adjust failsafe settings by using the ELRS [WebUI](https://www.expresslrs.org/hardware/pwm-receivers/?#channel-mapping-and-failsafe) function, which is already available in ELRS PWM receivers. If you would like the ability to easily adjust failsafe, then please add your comments to this [feature request](https://github.com/ExpressLRS/ExpressLRS/discussions/2514). 
 
 Until the feature request has been implemented, you will need to adjusting failsafe using the procedure below.
 
