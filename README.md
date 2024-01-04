@@ -1,6 +1,8 @@
 ## CRServoF_ELRS_for_RP2040_Pico
 
-NOTE: This project is a work in progress for Raspberry Pi microprocessor RP2040 boards like the Pico. This project does not support other microprocessors.
+NOTE: This project is a work in progress for Raspberry Pi microprocessor RP2040 boards like the Pico. This project does not support other microprocessors.  
+
+NOTE: This is experimental software/hardware and there is no guarantee of stability or reliability. **USE AT YOUR OWN RISK**.
 
 NOTE: This project was performed using Visual Studio with Platform IO for Linux. If you are using the Windows version, then you will need to [follow these instructions](https://arduino-pico.readthedocs.io/en/latest/platformio.html#important-steps-for-windows-users-before-installing) to get this project to work with Visual Studio/Platform IO for Windows.
 
@@ -14,7 +16,7 @@ This RC receiver has 6 PWM servo channels and 6 LED channels. EdgeTX will allow 
 
 For example, the user can easily program, in EdgeTX, to have the headlights turn on with a button on the RC transmitter or have the headlights turn on automatically when the throttle is applied.
 
-Another example is the LED pins could be connected to a high current relay that would be used on a STEM robot. The versatility of EdgeTX (RC transmitter software) and the stable radio link of ELRS makes this receiver one of the best choices for STEM robots.
+Another example is the LED pins could be connected to a high current relay that would be used on a STEM robot. The versatility of EdgeTX (RC transmitter software) and ELRS make this an ideal receiver for STEM robots.
 
 [Here are RC transmitters](https://www.radiomasterrc.com/collections/transmitter) that work with ExpressLRS (ELRS).
 
@@ -24,7 +26,9 @@ CRServoF_ELRS_for_RP2040_Pico has a portion from https://github.com/CapnBry/CRSe
 
 ## Firmware
 
-This project is a work in progress and has not been tested on all of the following devices. Therefore, please use with caution. If you want to use this software in the current state without compling, then the `firmware.uf2` files can be found here for [Pi Pico](.pio/build/pico),  [Pi Pico W](.pio/build/pico_w),  [Seeed XAIO RP2040](.pio/build/seeedxaio2040),  [Tiny 2040](.pio/build/tiny2040), and  [Waveshare RP2040-Zero](.pio/build/wavesharerp2040zero).
+NOTE: This is experimental software/hardware and there is no guarantee of stability or reliability. **USE AT YOUR OWN RISK**.
+
+If you want to use this software in the current state without compiling, then the `firmware.uf2` files can be found here for [Pi Pico](.pio/build/pico),  [Pi Pico W](.pio/build/pico_w),  [Seeed XAIO RP2040](.pio/build/seeedxaio2040),  [Tiny 2040](.pio/build/tiny2040), and  [Waveshare RP2040-Zero](.pio/build/wavesharerp2040zero).
 
 ## BOM
 
