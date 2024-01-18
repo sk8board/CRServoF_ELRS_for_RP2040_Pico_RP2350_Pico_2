@@ -2,7 +2,15 @@
 #include <CrsfSerial.h>  // https://github.com/CapnBry/CRServoF/
 #include <Servo.h>       // https://guthub.com/earlephilhower/arduino-pico
 #include "board_defs.h"
+#include "hardware/pwm.h"
+#include "hardware/irq.h"
+#include "pico/stdlib.h"
+//#include <stdio.h>
+//#include "pico/time.h"
+#include "RP2040_PWM.h"
 
+RP2040_PWM* PWM_Instance;
+uint32_t frequency;
 // BOARD_ID SELECTION HAPPENS IN PLATFORMIO ENVIRONMENT SELECTION
 
 // Blink routine variables and state tracking
@@ -20,13 +28,8 @@ unsigned long ms_last_link_changed = 0;  // last time crsf link changed
 unsigned long ms_last_led_changed = 0;   // last time led changed state in blink routine
 
 CrsfSerial crsf(UART_SELECT, CRSF_BAUDRATE); // pass any HardwareSerial port
-Servo servo1, servo2, servo3, servo4, servo5, servo6;
-bool External_LED_PIN1_State;
-bool External_LED_PIN2_State;
-bool External_LED_PIN3_State;
-bool External_LED_PIN4_State;
-bool External_LED_PIN5_State;
-bool External_LED_PIN6_State;
+Servo servo00, servo01, servo02, servo03, servo04, servo05, servo06, servo07, servo08, servo09, servo10, servo11, servo12, servo13, servo14, servo15;
+int16_t duty_cycle_value;
 
 
 // Debug code which is used for sending channel data to USB serial monitor
@@ -59,26 +62,80 @@ void failsafe_output();
 
 void failsafe_output() 
 {
-  servo1.write(Failsafe_CH1_Value);
-  servo2.write(Failsafe_CH2_Value);
-  servo3.write(Failsafe_CH3_Value);
-  servo4.write(Failsafe_CH4_Value);
-  servo5.write(Failsafe_CH5_Value);
-  servo6.write(Failsafe_CH6_Value);
-  gpio_put(External_LED_PIN1, Failsafe_CH7_Value);
-  gpio_put(External_LED_PIN2, Failsafe_CH8_Value);
-  gpio_put(External_LED_PIN3, Failsafe_CH9_Value);
-  gpio_put(External_LED_PIN4, Failsafe_CH10_Value);
-  gpio_put(External_LED_PIN5, Failsafe_CH11_Value);
-  gpio_put(External_LED_PIN6, Failsafe_CH12_Value);
+  for (u16_t i=0; i<Number_of_Channel_Outputs; ++i)
+  {
+    if (Channel_Config_Setting[i] == Channel_Set_To_PWM)
+    {
+      if (i == 0){
+        servo00.write(Failsafe_Channel_Value[i]);
+        }
+      if (i == 1){
+        servo01.write(Failsafe_Channel_Value[i]);
+        }
+      if (i == 2){
+        servo02.write(Failsafe_Channel_Value[i]);
+        }
+      if (i == 3){
+        servo03.write(Failsafe_Channel_Value[i]);
+        }
+      if (i == 4){
+        servo04.write(Failsafe_Channel_Value[i]);
+        }
+      if (i == 5){
+        servo05.write(Failsafe_Channel_Value[i]);
+        }
+      if (i == 6){
+        servo06.write(Failsafe_Channel_Value[i]);
+        }
+      if (i == 7){
+        servo07.write(Failsafe_Channel_Value[i]);
+        }
+      if (i == 8){
+        servo08.write(Failsafe_Channel_Value[i]);
+        }
+      if (i == 9){
+        servo09.write(Failsafe_Channel_Value[i]);
+        }
+      if (i == 10){
+        servo10.write(Failsafe_Channel_Value[i]);
+        }
+      if (i == 11){
+        servo11.write(Failsafe_Channel_Value[i]);
+        }
+      if (i == 12){
+        servo12.write(Failsafe_Channel_Value[i]);
+        }
+      if (i == 13){
+        servo13.write(Failsafe_Channel_Value[i]);
+        }
+      if (i == 14){
+        servo14.write(Failsafe_Channel_Value[i]);
+        }
+      if (i == 15){
+        servo15.write(Failsafe_Channel_Value[i]);
+        }
+    }
+    if (Channel_Config_Setting[i] == Channel_Set_To_DutyCycle)
+    { 
+      duty_cycle_value = (Failsafe_Channel_Value[i]-1000)/10;
+      if (duty_cycle_value > 90){
+        duty_cycle_value = 100;
+      }
+      if (duty_cycle_value < 10){
+        duty_cycle_value = 0;
+      }
+      if (Duty_Cycle_Invert == 1){
+        duty_cycle_value = (duty_cycle_value-100)*-1;
+      }
+      pwm_set_gpio_level (Channel_GPIO_Mapping[i], duty_cycle_value);
+    }
+  }
 }
 
 
 void packetChannels()
 {
-  // Pin locations can be set up in calibrations.h
-  // Channels 1 - 6 are PWM outputs
-  // Channels 7 - 12 are LED ground side driver outputs
+  // Pin locations can be set up in board_defs.h
 
   // channelX_data is used for debug only
   if (DEBUG == 1)
@@ -97,114 +154,75 @@ void packetChannels()
     channel12_data = crsf.getChannel(12);
   }
 
-  servo1.write(crsf.getChannel(1));
-  servo2.write(crsf.getChannel(2));
-  servo3.write(crsf.getChannel(3));
-  servo4.write(crsf.getChannel(4));
-  servo5.write(crsf.getChannel(5));
-  servo6.write(crsf.getChannel(6));
-
-  if (crsf.getChannel(7) LED_Invert 1600)
+  for (uint8_t i=0; i<Number_of_Channel_Outputs; ++i)
   {
-    if (External_LED_PIN1_State == 0)
+    if (Channel_Config_Setting[i] == Channel_Set_To_PWM)
     {
-      gpio_put(External_LED_PIN1, HIGH);
-      External_LED_PIN1_State = 1;
+      if (i == 0){
+        servo00.write(crsf.getChannel(i+1));
+        }
+      if (i == 1){
+        servo01.write(crsf.getChannel(i+1));
+        }
+      if (i == 2){
+        servo02.write(crsf.getChannel(i+1));
+        }
+      if (i == 3){
+        servo03.write(crsf.getChannel(i+1));
+        }
+      if (i == 4){
+        servo04.write(crsf.getChannel(i+1));
+        }
+      if (i == 5){
+        servo05.write(crsf.getChannel(i+1));
+        }
+      if (i == 6){
+        servo06.write(crsf.getChannel(i+1));
+        }
+      if (i == 7){
+        servo07.write(crsf.getChannel(i+1));
+        }
+      if (i == 8){
+        servo08.write(crsf.getChannel(i+1));
+        }
+      if (i == 9){
+        servo09.write(crsf.getChannel(i+1));
+        }
+      if (i == 10){
+        servo10.write(crsf.getChannel(i+1));
+        }
+      if (i == 11){
+        servo11.write(crsf.getChannel(i+1));
+        }
+      if (i == 12){
+        servo12.write(crsf.getChannel(i+1));
+        }
+      if (i == 13){
+        servo13.write(crsf.getChannel(i+1));
+        }
+      if (i == 14){
+        servo14.write(crsf.getChannel(i+1));
+        }
+      if (i == 15){
+        servo15.write(crsf.getChannel(i+1));
+        }
     }
-  }
-  else
-  {
-    if (External_LED_PIN1_State == 1)
-    {
-      gpio_put(External_LED_PIN1, LOW);
-      External_LED_PIN1_State = 0;
+    if (Channel_Config_Setting[i] == Channel_Set_To_DutyCycle)
+    { 
+      duty_cycle_value = ((crsf.getChannel(i+1)-1000)/10);
+      if (duty_cycle_value > 90){
+        duty_cycle_value = 100;
+      }
+      if (duty_cycle_value < 10){
+        duty_cycle_value = 0;
+      }
+      if (Duty_Cycle_Invert == 1){
+        duty_cycle_value = (duty_cycle_value-100)*-1;
+      }
+      //pwm_set_gpio_level (Channel_GPIO_Mapping[i], duty_cycle_value);
+      PWM_Instance->setPWM(Channel_GPIO_Mapping[i], frequency, duty_cycle_value);
     }
-  }
-
-  if (crsf.getChannel(8) LED_Invert 1600)
-  {
-    if (External_LED_PIN2_State == 0)
-    {
-      gpio_put(External_LED_PIN2, HIGH);
-      External_LED_PIN2_State = 1;
-    }
-  }
-  else
-  {
-    if (External_LED_PIN2_State == 1)
-    {
-      gpio_put(External_LED_PIN2, LOW);
-      External_LED_PIN2_State = 0;
-    }
-  }
-
-  if (crsf.getChannel(9) LED_Invert 1600)
-  {
-    if (External_LED_PIN3_State == 0)
-    {
-      gpio_put(External_LED_PIN3, HIGH);
-      External_LED_PIN3_State = 1;
-    }
-  }
-  else
-  {
-    if (External_LED_PIN3_State == 1)
-    {
-      gpio_put(External_LED_PIN3, LOW);
-      External_LED_PIN3_State = 0;
-    }
-  }
-
-  if (crsf.getChannel(10) LED_Invert 1600)
-  {
-    if (External_LED_PIN4_State == 0)
-    {
-      gpio_put(External_LED_PIN4, HIGH);
-      External_LED_PIN4_State = 1;
-    }
-  }
-  else
-  {
-    if (External_LED_PIN4_State == 1)
-    {
-      gpio_put(External_LED_PIN4, LOW);
-      External_LED_PIN4_State = 0;
-    }
-  }
-
-  if (crsf.getChannel(11) LED_Invert 1600)
-  {
-    if (External_LED_PIN5_State == 0)
-    {
-      gpio_put(External_LED_PIN5, HIGH);
-      External_LED_PIN5_State = 1;
-    }
-  }
-  else
-  {
-    if (External_LED_PIN5_State == 1)
-    {
-      gpio_put(External_LED_PIN5, LOW);
-      External_LED_PIN5_State = 0;
-    }
-  }
-
-  if (crsf.getChannel(12) LED_Invert 1600)
-  {
-    if (External_LED_PIN6_State == 0)
-    {
-      gpio_put(External_LED_PIN6, HIGH);
-      External_LED_PIN6_State = 1;
-    }
-  }
-  else
-  {
-    if (External_LED_PIN6_State == 1)
-    {
-      gpio_put(External_LED_PIN6, LOW); 
-      External_LED_PIN6_State = 0;
-    }
-  }
+  }   
 }
 
 
@@ -398,7 +416,15 @@ void led_loop() {
 }
 #endif
 
+uint8_t Channel_Pin;
 
+void pwm_init_pin(uint8_t Channel_Pin) {
+    gpio_set_function(Channel_Pin, GPIO_FUNC_PWM);
+    uint slice_num = pwm_gpio_to_slice_num(Channel_Pin);
+    pwm_config config = pwm_get_default_config();
+    pwm_config_set_clkdiv(&config, 4.f);
+    pwm_init(slice_num, &config, true);
+}
 
 void setup()
 {
@@ -417,25 +443,71 @@ void setup()
   crsf.begin();
   serialEcho = true;
 
-  gpio_init (External_LED_PIN1); 
-  gpio_init (External_LED_PIN2);
-  gpio_init (External_LED_PIN3);
-  gpio_init (External_LED_PIN4);
-  gpio_init (External_LED_PIN5);
-  gpio_init (External_LED_PIN6);
-  gpio_set_dir(External_LED_PIN1, OUTPUT);
-  gpio_set_dir(External_LED_PIN2, OUTPUT);
-  gpio_set_dir(External_LED_PIN3, OUTPUT);
-  gpio_set_dir(External_LED_PIN4, OUTPUT);
-  gpio_set_dir(External_LED_PIN5, OUTPUT);
-  gpio_set_dir(External_LED_PIN6, OUTPUT);
+  uint8_t Channel_Pin;
 
-  servo1.attach(PWM_PIN1);
-  servo2.attach(PWM_PIN2);
-  servo3.attach(PWM_PIN3);
-  servo4.attach(PWM_PIN4);
-  servo5.attach(PWM_PIN5);
-  servo6.attach(PWM_PIN6);
+  unsigned i;
+  for (i=0; i<Number_of_Channel_Outputs; ++i)
+  {
+    if (Channel_Config_Setting[i] == Channel_Set_To_PWM)
+    {
+      if (i == 0){
+        servo00.attach(Channel_GPIO_Mapping[i]);
+        }
+      if (i == 1){
+        servo01.attach(Channel_GPIO_Mapping[i]);
+        }
+      if (i == 2){
+        servo02.attach(Channel_GPIO_Mapping[i]);
+        }
+      if (i == 3){
+        servo03.attach(Channel_GPIO_Mapping[i]);
+        }
+      if (i == 4){
+        servo04.attach(Channel_GPIO_Mapping[i]);
+        }
+      if (i == 5){
+        servo05.attach(Channel_GPIO_Mapping[i]);
+        }
+      if (i == 6){
+        servo06.attach(Channel_GPIO_Mapping[i]);
+        }
+      if (i == 7){
+        servo07.attach(Channel_GPIO_Mapping[i]);
+        }
+      if (i == 8){
+        servo08.attach(Channel_GPIO_Mapping[i]);
+        }
+      if (i == 9){
+        servo09.attach(Channel_GPIO_Mapping[i]);
+        }
+      if (i == 10){
+        servo10.attach(Channel_GPIO_Mapping[i]);
+        }
+      if (i == 11){
+        servo11.attach(Channel_GPIO_Mapping[i]);
+        }
+      if (i == 12){
+        servo12.attach(Channel_GPIO_Mapping[i]);
+        }
+      if (i == 13){
+        servo13.attach(Channel_GPIO_Mapping[i]);
+        }
+      if (i == 14){
+        servo14.attach(Channel_GPIO_Mapping[i]);
+        }
+      if (i == 15){
+        servo15.attach(Channel_GPIO_Mapping[i]);
+        }
+    }
+    if (Channel_Config_Setting[i] == Channel_Set_To_DutyCycle)
+    { 
+      Channel_Pin = Channel_GPIO_Mapping[i];
+      frequency = 10000;  // hz
+      PWM_Instance = new RP2040_PWM(Channel_Pin, frequency, 0);
+      // pwm_init_pin(Channel_Pin); 
+      // pwm_set_gpio_level (Channel_Pin, 0);
+    }
+  } 
 }
 
 
@@ -493,12 +565,6 @@ void loop1()   // for second core
   debugln();
   debug("Channel 12  ");
   debug(channel12_data);
-  debugln();
-  debug("External_LED_PIN6_State");
-  debug(External_LED_PIN6_State);
-  debugln();
-  debug("Channel 12 < 1600 (LED PIN6 true or false)");
-  debug(crsf.getChannel(12) < 1600);
   debugln();
   debug_delay(1000);
 }

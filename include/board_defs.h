@@ -1,3 +1,7 @@
+#include "pico.h"
+
+
+
 #ifndef BOARD_DEFS
 #define BOARD_DEFS
 
@@ -5,19 +9,37 @@
 #define LED_TYPE_NEOPIXEL 2
 #define LED_TYPE_RGB 3
 
-// Failsafe values
-#define Failsafe_CH1_Value 1500                // Failsafe servo value
-#define Failsafe_CH2_Value 1500                // Failsafe servo value
-#define Failsafe_CH3_Value 1500                // Failsafe servo value
-#define Failsafe_CH4_Value 1500                // Failsafe servo value
-#define Failsafe_CH5_Value 1500                // Failsafe servo value
-#define Failsafe_CH6_Value 1500                // Failsafe servo value
-#define Failsafe_CH7_Value LOW                 // Failsafe Digital Switch/LED value
-#define Failsafe_CH8_Value LOW                 // Failsafe Digital Switch/LED value
-#define Failsafe_CH9_Value LOW                 // Failsafe Digital Switch/LED value
-#define Failsafe_CH10_Value LOW                // Failsafe Digital Switch/LED value
-#define Failsafe_CH11_Value LOW                // Failsafe Digital Switch/LED value
-#define Failsafe_CH12_Value LOW                // Failsafe Digital Switch/LED value
+#define PWM_Signal_Invert false  // True inverts the PMW signal for use with NPN driver
+//pwm_config_set_output_polarity(1 ,true, true)  //PWM Invert
+//pwm_gpio_to_channel()
+//pwm_gpio_to_slice_num()
+//pwm_set_output_polarity()
+
+// Channel_Function_Enable
+#define Channel_Set_To_Off 0
+#define Channel_Set_To_PWM 1
+#define Channel_Set_To_DutyCycle 2
+
+
+// Failsafe values, 1000 to 2000
+uint16_t Failsafe_Channel_Value [16] = {
+1500,    // Channel 1 Failsafe value           
+1500,    // Channel 2 Failsafe value                 
+1500,    // Channel 3 Failsafe value                
+1500,    // Channel 4 Failsafe value                 
+1500,    // Channel 5 Failsafe value                 
+1500,    // Channel 6 Failsafe value                 
+1500,    // Channel 7 Failsafe value                 
+1500,    // Channel 8 Failsafe value                 
+1500,    // Channel 9 Failsafe value                  
+1500,    // Channel 10 Failsafe value                 
+1500,    // Channel 11 Failsafe value                
+1500,    // Channel 12 Failsafe value  
+1500,    // Channel 13 Failsafe value                 
+1500,    // Channel 14 Failsafe value                
+1500,    // Channel 15 Failsafe value   
+1500    // Channel 16 Failsafe value   
+};            
 
 // PiPico
 #if BOARD_ID == 1
@@ -27,21 +49,41 @@
 
     #define LED_TYPE LED_TYPE_SINGLE
     #define LED_PIN 25
+    
+    #define Duty_Cycle_Invert 0  // 1 enables inverting the duty cycle signal
 
-    #define PWM_PIN1 21  //GP21, ELRS Channel 1
-    #define PWM_PIN2 20  //GP20, ELRS Channel 2
-    #define PWM_PIN3 19  //GP19, ELRS Channel 3
-    #define PWM_PIN4 18  //GP18, ELRS Channel 4
-    #define PWM_PIN5 17  //GP17, ELRS Channel 5
-    #define PWM_PIN6 16  //GP16, ELRS Channel 6
+    // Set channel function (off, PWM, or Duty Cycle) and GPIO pin number below
+    #define Number_of_Channel_Outputs 12  // NOTE: PWM Channels must be set in Slice Pairs
+    uint16_t Channel_Config_Setting[Number_of_Channel_Outputs] = {
+      Channel_Set_To_PWM, // Channel 1 config setting
+      Channel_Set_To_PWM, // Channel 2 config setting
+      Channel_Set_To_PWM, // Channel 3 config setting
+      Channel_Set_To_PWM, // Channel 4 config setting
+      Channel_Set_To_PWM, // Channel 5 config setting
+      Channel_Set_To_PWM, // Channel 6 config setting
+      Channel_Set_To_PWM, // Channel 7 config setting
+      Channel_Set_To_PWM, // Channel 8 config setting
+      Channel_Set_To_PWM, // Channel 9 config setting
+      Channel_Set_To_PWM, // Channel 10 config setting
+      Channel_Set_To_PWM, // Channel 11 config setting
+      Channel_Set_To_PWM // Channel 12 config setting
+    };
 
-    #define LED_Invert >  // Change > or < to invert the LED operation
-    #define External_LED_PIN1 10  //GP10, ELRS Channel 7
-    #define External_LED_PIN2 11  //GP11, ELRS Channel 8
-    #define External_LED_PIN3 12  //GP12, ELRS Channel 9
-    #define External_LED_PIN4 13  //GP13, ELRS Channel 10
-    #define External_LED_PIN5 14  //GP14, ELRS Channel 11
-    #define External_LED_PIN6 15  //GP15, ELRS Channel 12
+    // NOTE: PWM Channels must be set in Slice Pairs
+    uint16_t Channel_GPIO_Mapping[Number_of_Channel_Outputs] ={
+      21, //GPIO 21, ELRS Channel 1
+      20, //GPIO 20, ELRS Channel 2
+      19, //GPIO 19, ELRS Channel 3
+      18, //GPIO 18, ELRS Channel 4
+      17, //GPIO 17, ELRS Channel 5
+      16, //GPIO 16, ELRS Channel 6
+      10, //GPIO 10, ELRS Channel 7
+      11, //GPIO 11, ELRS Channel 8
+      12, //GPIO 12, ELRS Channel 9
+      13, //GPIO 13, ELRS Channel 10
+      14, //GPIO 14, ELRS Channel 11
+      15  //GPIO 15, ELRS Channel 12
+    };
 
     void boardSetup() {
       pinMode(LED_PIN,OUTPUT);
@@ -66,21 +108,37 @@
     #define LED_PIN_R 18
     #define LED_PIN_G 19
     #define LED_PIN_B 20
+    
+    #define Duty_Cycle_Invert 0  // 1 enables inverting the duty cycle signal
 
-    #define PWM_PIN1 0  //GP0, ELRS Channel 1
-    #define PWM_PIN2 1  //GP1, ELRS Channel 2
-    #define PWM_PIN3 2  //GP2, ELRS Channel 3
-    #define PWM_PIN4 3  //GP3, ELRS Channel 4
-    #define PWM_PIN5 6  //GP6, ELRS Channel 5
-    #define PWM_PIN6 7  //GP7, ELRS Channel 6
+    // Set channel function (off, PWM, or Duty Cycle) and GPIO pin number below
+    #define Number_of_Channel_Outputs 10  // NOTE: PWM Channels must be set in Slice Pairs
+    uint16_t Channel_Config_Setting[Number_of_Channel_Outputs] = {
+      Channel_Set_To_PWM, // Channel 1 config setting
+      Channel_Set_To_PWM, // Channel 2 config setting
+      Channel_Set_To_PWM, // Channel 3 config setting
+      Channel_Set_To_PWM, // Channel 4 config setting
+      Channel_Set_To_PWM, // Channel 5 config setting
+      Channel_Set_To_PWM, // Channel 6 config setting
+      Channel_Set_To_PWM, // Channel 7 config setting
+      Channel_Set_To_PWM, // Channel 8 config setting
+      Channel_Set_To_PWM, // Channel 9 config setting
+      Channel_Set_To_PWM, // Channel 10 config setting
+    };
 
-    #define LED_Invert >  // Change > or < to invert the LED operation
-    #define External_LED_PIN1 29 //GP29, ELRS Channel 7
-    #define External_LED_PIN2 28 //GP28, ELRS Channel 8
-    #define External_LED_PIN3 27 //GP27, ELRS Channel 9
-    #define External_LED_PIN4 26 //GP26, ELRS Channel 10
-    #define External_LED_PIN5 25 //GPx,  ELRS Channel 11
-    #define External_LED_PIN6 24 //GPx,  ELRS Channel 12
+    // NOTE: PWM Channels must be set in Slice Pairs
+    uint16_t Channel_GPIO_Mapping[Number_of_Channel_Outputs] = {
+      0, //GPIO 0, ELRS Channel 1
+      1, //GPIO 1, ELRS Channel 2
+      2, //GPIO 2, ELRS Channel 3
+      3, //GPIO 3, ELRS Channel 4
+      6, //GPIO 6, ELRS Channel 5
+      7, //GPIO 7, ELRS Channel 6
+      29, //GPIO 29, ELRS Channel 7
+      28, //GPIO 28, ELRS Channel 8
+      27, //GPIO 27, ELRS Channel 9
+      26, //GPIO 26, ELRS Channel 10
+    };
 
     void boardSetup() {
       pinMode(LED_PIN_R,OUTPUT);
@@ -110,20 +168,40 @@
     #define LED_TYPE LED_TYPE_NEOPIXEL
     #define LED_PIN 16
 
-    #define PWM_PIN1 29  //GPIO 29, ELRS Channel 1
-    #define PWM_PIN2 28  //GPIO 28, ELRS Channel 2
-    #define PWM_PIN3 27  //GPIO 27, ELRS Channel 3
-    #define PWM_PIN4 26  //GPIO 26, ELRS Channel 4
-    #define PWM_PIN5 15  //GPIO 15, ELRS Channel 5
-    #define PWM_PIN6 14  //GPIO 14, ELRS Channel 6
+    #define Duty_Cycle_Invert 0  // 1 enables inverting the duty cycle signal
 
-    #define LED_Invert >  // Change > or < to invert the LED operation
-    #define External_LED_PIN1 2  //GPIO 2 ELRS Channel 7
-    #define External_LED_PIN2 3  //GPIO 3 ELRS Channel 8
-    #define External_LED_PIN3 4  //GPIO 4 ELRS Channel 9
-    #define External_LED_PIN4 5  //GPIO 5 ELRS Channel 10
-    #define External_LED_PIN5 6  //GPIO 6 ELRS Channel 11
-    #define External_LED_PIN6 7  //GPIO 7 ELRS Channel 12
+    // Set channel function (off, PWM, or Duty Cycle) 
+    #define Number_of_Channel_Outputs 12  // NOTE: PWM Channels must be set in Slice Pairs
+    uint16_t Channel_Config_Setting[Number_of_Channel_Outputs] = {
+      Channel_Set_To_PWM, // Channel 1 config setting
+      Channel_Set_To_PWM, // Channel 2 config setting
+      Channel_Set_To_PWM, // Channel 3 config setting
+      Channel_Set_To_PWM, // Channel 4 config setting
+      Channel_Set_To_PWM, // Channel 5 config setting
+      Channel_Set_To_PWM, // Channel 6 config setting
+      Channel_Set_To_DutyCycle, // Channel 7 config setting
+      Channel_Set_To_DutyCycle, // Channel 8 config setting
+      Channel_Set_To_DutyCycle, // Channel 9 config setting
+      Channel_Set_To_DutyCycle, // Channel 10 config setting
+      Channel_Set_To_DutyCycle, // Channel 11 config setting
+      Channel_Set_To_DutyCycle // Channel 12 config setting
+    };
+
+    // NOTE: PWM Channels must be set in Slice Pairs
+    uint16_t Channel_GPIO_Mapping[Number_of_Channel_Outputs] ={
+      29, //GPIO 29, ELRS Channel 1
+      28, //GPIO 28, ELRS Channel 2
+      27, //GPIO 27, ELRS Channel 3
+      26, //GPIO 26, ELRS Channel 4
+      15, //GPIO 15, ELRS Channel 5
+      14, //GPIO 14, ELRS Channel 6
+      2, //GPIO 2, ELRS Channel 7
+      3, //GPIO 3, ELRS Channel 8
+      4, //GPIO 4 ELRS Channel 9
+      5, //GPIO 5 ELRS Channel 10
+      6, //GPIO 6 ELRS Channel 11
+      7  //GPIO 7 ELRS Channel 12
+    };
 
     #include <Adafruit_NeoPixel.h>
     Adafruit_NeoPixel pixels(1, LED_PIN, NEO_GRB + NEO_KHZ800);
@@ -160,20 +238,34 @@
     //#define LED_NEO_PWR 11
     //#define LED_PIN 12
 
-    #define PWM_PIN1 26  //GP26, ELRS Channel 1
-    #define PWM_PIN2 27  //GP27, ELRS Channel 2
-    #define PWM_PIN3 28  //GP28, ELRS Channel 3
-    #define PWM_PIN4 29  //GP29, ELRS Channel 4
-    #define PWM_PIN5 6   //GP6,  ELRS Channel 5
-    #define PWM_PIN6 7   //GP7,  ELRS Channel 6
+    #define Duty_Cycle_Invert 0  // 1 enables inverting the duty cycle signal
 
-    #define LED_Invert >  // Change > or < to invert the LED operation
-    #define External_LED_PIN1 2   //GP2, ELRS Channel 7
-    #define External_LED_PIN2 3   //GP3, ELRS Channel 8
-    #define External_LED_PIN3 4   //GP4, ELRS Channel 9
-    #define External_LED_PIN4 13  //GPx, ELRS Channel 10
-    #define External_LED_PIN5 14  //GPx, ELRS Channel 11
-    #define External_LED_PIN6 15  //GPx, ELRS Channel 12
+    // Set channel function (off, PWM, or Duty Cycle) and GPIO pin number below
+    #define Number_of_Channel_Outputs 9  // NOTE: PWM Channels must be set in Slice Pairs
+    uint16_t Channel_Config_Setting[Number_of_Channel_Outputs] = {
+      Channel_Set_To_PWM, // Channel 1 config setting
+      Channel_Set_To_PWM, // Channel 2 config setting
+      Channel_Set_To_PWM, // Channel 3 config setting
+      Channel_Set_To_PWM, // Channel 4 config setting
+      Channel_Set_To_PWM, // Channel 5 config setting
+      Channel_Set_To_PWM, // Channel 6 config setting
+      Channel_Set_To_PWM, // Channel 7 config setting
+      Channel_Set_To_PWM, // Channel 8 config setting
+      Channel_Set_To_PWM, // Channel 9 config setting
+    };
+
+    // NOTE: PWM Channels must be set in Slice Pairs
+    uint16_t Channel_GPIO_Mapping[Number_of_Channel_Outputs] ={
+      26, //GPIO 29, ELRS Channel 1
+      27, //GPIO 28, ELRS Channel 2
+      28, //GPIO 27, ELRS Channel 3
+      29, //GPIO 26, ELRS Channel 4
+      6, //GPIO 15, ELRS Channel 5
+      7, //GPIO 14, ELRS Channel 6
+      2, //GPIO 2, ELRS Channel 7
+      3, //GPIO 3, ELRS Channel 8
+      4, //GPIO 4 ELRS Channel 9
+    };
 
     //#include <Adafruit_NeoPixel.h>
     //Adafruit_NeoPixel pixels(1, LED_PIN, NEO_GRB + NEO_KHZ800);
@@ -225,20 +317,40 @@
     #define LED_TYPE LED_TYPE_SINGLE
     #define LED_PIN 6  // Need to install an external LED since Pico W internal LED is difficult to access.
 
-    #define PWM_PIN1 21  //GP21, ELRS Channel 1
-    #define PWM_PIN2 20  //GP20, ELRS Channel 2
-    #define PWM_PIN3 19  //GP19, ELRS Channel 3
-    #define PWM_PIN4 18  //GP18, ELRS Channel 4
-    #define PWM_PIN5 17  //GP17, ELRS Channel 5
-    #define PWM_PIN6 16  //GP16, ELRS Channel 6
+    #define Duty_Cycle_Invert 0  // 1 enables inverting the duty cycle signal
 
-    #define LED_Invert >  // Change > or < to invert the LED operation
-    #define External_LED_PIN1 10  //GP10, ELRS Channel 7
-    #define External_LED_PIN2 11  //GP11, ELRS Channel 8
-    #define External_LED_PIN3 12  //GP12, ELRS Channel 9
-    #define External_LED_PIN4 13  //GP13, ELRS Channel 10
-    #define External_LED_PIN5 14  //GP14, ELRS Channel 11
-    #define External_LED_PIN6 15  //GP15, ELRS Channel 12
+    // Set channel function (off, PWM, or Duty Cycle) and GPIO pin number below
+    #define Number_of_Channel_Outputs 12  // NOTE: PWM Channels must be set in Slice Pairs
+    uint16_t Channel_Config_Setting[Number_of_Channel_Outputs] = {
+      Channel_Set_To_PWM, // Channel 1 config setting
+      Channel_Set_To_PWM, // Channel 2 config setting
+      Channel_Set_To_PWM, // Channel 3 config setting
+      Channel_Set_To_PWM, // Channel 4 config setting
+      Channel_Set_To_PWM, // Channel 5 config setting
+      Channel_Set_To_PWM, // Channel 6 config setting
+      Channel_Set_To_DutyCycle, // Channel 7 config setting
+      Channel_Set_To_DutyCycle, // Channel 8 config setting
+      Channel_Set_To_DutyCycle, // Channel 9 config setting
+      Channel_Set_To_DutyCycle, // Channel 10 config setting
+      Channel_Set_To_DutyCycle, // Channel 11 config setting
+      Channel_Set_To_DutyCycle // Channel 12 config setting
+    };
+
+    // NOTE: PWM Channels must be set in Slice Pairs
+    uint16_t Channel_GPIO_Mapping[Number_of_Channel_Outputs] ={
+      21, //GPIO 21, ELRS Channel 1
+      20, //GPIO 20, ELRS Channel 2
+      19, //GPIO 19, ELRS Channel 3
+      18, //GPIO 18, ELRS Channel 4
+      17, //GPIO 17, ELRS Channel 5
+      16, //GPIO 16, ELRS Channel 6
+      10, //GPIO 10, ELRS Channel 7
+      11, //GPIO 11, ELRS Channel 8
+      12, //GPIO 12, ELRS Channel 9
+      13, //GPIO 13, ELRS Channel 10
+      14, //GPIO 14, ELRS Channel 11
+      15  //GPIO 15, ELRS Channel 12
+    };
 
     void boardSetup() {
       pinMode(LED_PIN,OUTPUT);
