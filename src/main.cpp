@@ -23,22 +23,12 @@ CrsfSerial crsf(UART_SELECT, CRSF_BAUDRATE); // pass any HardwareSerial port
 uint16_t Servo_Value;
 int16_t Duty_Cycle_Value;
 uint8_t i;  // for loop incrementor
-uint slice_num[Number_of_Channel_Outputs]; //
+uint slice_num[Number_of_Channel_Outputs]; 
 
 // Debug code which is used for sending channel data to USB serial monitor
 #define DEBUG 0    // 0 turns off serial debug, 1 turns on serial debug
-uint16_t channel1_data;
-uint16_t channel2_data;
-uint16_t channel3_data;
-uint16_t channel4_data;
-uint16_t channel5_data;
-uint16_t channel6_data;
-uint16_t channel7_data;
-uint16_t channel8_data;
-uint16_t channel9_data;
-uint16_t channel10_data;
-uint16_t channel11_data;
-uint16_t channel12_data;
+#define Number_of_Debug_Channels 12
+uint16_t channel_data[Number_of_Debug_Channels];
 #if DEBUG == 1
 #define debug(x) Serial.print(x)
 #define debugln(x) Serial.println(x)
@@ -55,11 +45,11 @@ void failsafe_output();
 
 void failsafe_output() 
 {
-  for (u16_t i=0; i<Number_of_Channel_Outputs; ++i)
+  for (i=0; i<Number_of_Channel_Outputs; ++i)
   {
     if (Channel_Config_Setting[i] == Channel_Set_To_PWM | Channel_Config_Setting[i] == Channel_Set_To_DutyCycle)
     {
-      pwm_set_gpio_level(Channel_GPIO_Mapping[i], Failsafe_Channel_Value[i]); // update PWM output value
+      pwm_set_gpio_level(Channel_GPIO_Mapping[i], Failsafe_Channel_Value[i]); // update PWM output value with failsafe value
     }
   }
 }
@@ -72,18 +62,9 @@ void packetChannels()
   // channelX_data is used for debug only
   if (DEBUG == 1)
   {    
-    channel1_data = crsf.getChannel(1);
-    channel2_data = crsf.getChannel(2);
-    channel3_data = crsf.getChannel(3);
-    channel4_data = crsf.getChannel(4);
-    channel5_data = crsf.getChannel(5);
-    channel6_data = crsf.getChannel(6);
-    channel7_data = crsf.getChannel(7);
-    channel8_data = crsf.getChannel(8);
-    channel9_data = crsf.getChannel(9);
-    channel10_data = crsf.getChannel(10);
-    channel11_data = crsf.getChannel(11);
-    channel12_data = crsf.getChannel(12);
+    for(i=0; i<Number_of_Debug_Channels; ++i){
+      channel_data[i] = crsf.getChannel(i+1);
+    }
   }
 
   for (i=0; i<Number_of_Channel_Outputs; ++i)
@@ -376,41 +357,12 @@ void setup1()  // for second core
 
 void loop1()   // for second core
 {
-  debug("Channel 1  ");
-  debug(channel1_data);
-  debugln();
-  debug("Channel 2  ");
-  debug(channel2_data);
-  debugln();
-  debug("Channel 3  ");
-  debug(channel3_data);
-  debugln();
-  debug("Channel 4  ");
-  debug(channel4_data);
-  debugln();
-  debug("Channel 5  ");
-  debug(channel5_data);
-  debugln();
-  debug("Channel 6  ");
-  debug(channel6_data);
-  debugln();
-  debug("Channel 7  ");
-  debug(channel7_data);
-  debugln();
-  debug("Channel 8  ");
-  debug(channel8_data);
-  debugln();
-  debug("Channel 9  ");
-  debug(channel9_data);
-  debugln();
-  debug("Channel 10  ");
-  debug(channel10_data);
-  debugln();
-  debug("Channel 11  ");
-  debug(channel11_data);
-  debugln();
-  debug("Channel 12  ");
-  debug(channel12_data);
-  debugln();
+  for(i=0; i<Number_of_Debug_Channels; ++i){
+    debug("Channel");
+    debug(i+1);
+    debug(" ");
+    debug(channel_data[i]);
+    debugln();
+  }
   debug_delay(1000);
 }
