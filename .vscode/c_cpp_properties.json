@@ -13,6 +13,7 @@
                 "/home/home14/Documents/Github/CRServoF_ELRS_for_RP2040_Pico/lib/Servo",
                 "/home/home14/Documents/Github/CRServoF_ELRS_for_RP2040_Pico/lib/CrsfSerial",
                 "/home/home14/Documents/Github/CRServoF_ELRS_for_RP2040_Pico/lib/crc8",
+                "/home/home14/Documents/Github/CRServoF_ELRS_for_RP2040_Pico/.pio/libdeps/pico/RP2040_PWM/src",
                 "/home/home14/.platformio/packages/framework-arduinopico/cores/rp2040",
                 "/home/home14/.platformio/packages/framework-arduinopico/cores/rp2040/api/deprecated",
                 "/home/home14/.platformio/packages/framework-arduinopico/cores/rp2040/api/deprecated-avr-comp",
@@ -142,6 +143,7 @@
                     "/home/home14/Documents/Github/CRServoF_ELRS_for_RP2040_Pico/lib/Servo",
                     "/home/home14/Documents/Github/CRServoF_ELRS_for_RP2040_Pico/lib/CrsfSerial",
                     "/home/home14/Documents/Github/CRServoF_ELRS_for_RP2040_Pico/lib/crc8",
+                    "/home/home14/Documents/Github/CRServoF_ELRS_for_RP2040_Pico/.pio/libdeps/pico/RP2040_PWM/src",
                     "/home/home14/.platformio/packages/framework-arduinopico/cores/rp2040",
                     "/home/home14/.platformio/packages/framework-arduinopico/cores/rp2040/api/deprecated",
                     "/home/home14/.platformio/packages/framework-arduinopico/cores/rp2040/api/deprecated-avr-comp",
@@ -265,7 +267,7 @@
                 ]
             },
             "defines": [
-                "PLATFORMIO=60111",
+                "PLATFORMIO=60113",
                 "ARDUINO_RASPBERRY_PI_PICO",
                 "ARDUINO_ARCH_RP2040",
                 "USBD_MAX_POWER_MA=500",
