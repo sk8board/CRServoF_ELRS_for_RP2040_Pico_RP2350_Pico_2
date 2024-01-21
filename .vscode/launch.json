@@ -12,22 +12,22 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug",
-            "executable": "/home/home14/Documents/Github/CRServoF_ELRS_for_RP2040_Pico/.pio/build/pico/firmware.elf",
-            "projectEnvName": "pico",
+            "executable": "/home/home14/Documents/Github/CRServoF_ELRS_for_RP2040_Pico/.pio/build/wavesharerp2040zero/firmware.elf",
+            "projectEnvName": "wavesharerp2040zero",
             "toolchainBinDir": "/home/home14/.platformio/packages/toolchain-rp2040-earlephilhower/bin",
             "internalConsoleOptions": "openOnSessionStart",
             "svdPath": "/home/home14/.platformio/platforms/raspberrypi/misc/svd/rp2040.svd",
             "preLaunchTask": {
                 "type": "PlatformIO",
-                "task": "Pre-Debug"
+                "task": "Pre-Debug (wavesharerp2040zero)"
             }
         },
         {
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug (skip Pre-Debug)",
-            "executable": "/home/home14/Documents/Github/CRServoF_ELRS_for_RP2040_Pico/.pio/build/pico/firmware.elf",
-            "projectEnvName": "pico",
+            "executable": "/home/home14/Documents/Github/CRServoF_ELRS_for_RP2040_Pico/.pio/build/wavesharerp2040zero/firmware.elf",
+            "projectEnvName": "wavesharerp2040zero",
             "toolchainBinDir": "/home/home14/.platformio/packages/toolchain-rp2040-earlephilhower/bin",
             "internalConsoleOptions": "openOnSessionStart",
             "svdPath": "/home/home14/.platformio/platforms/raspberrypi/misc/svd/rp2040.svd"
@@ -36,8 +36,8 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug (without uploading)",
-            "executable": "/home/home14/Documents/Github/CRServoF_ELRS_for_RP2040_Pico/.pio/build/pico/firmware.elf",
-            "projectEnvName": "pico",
+            "executable": "/home/home14/Documents/Github/CRServoF_ELRS_for_RP2040_Pico/.pio/build/wavesharerp2040zero/firmware.elf",
+            "projectEnvName": "wavesharerp2040zero",
             "toolchainBinDir": "/home/home14/.platformio/packages/toolchain-rp2040-earlephilhower/bin",
             "internalConsoleOptions": "openOnSessionStart",
             "svdPath": "/home/home14/.platformio/platforms/raspberrypi/misc/svd/rp2040.svd",
