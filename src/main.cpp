@@ -1,7 +1,7 @@
-#include <Arduino.h>
 #include <CrsfSerial.h>  // https://github.com/CapnBry/CRServoF/
-#include <Servo.h>       // https://guthub.com/earlephilhower/arduino-pico
 #include "board_defs.h"
+#include "hardware/pwm.h"
+
 
 // BOARD_ID SELECTION HAPPENS IN PLATFORMIO ENVIRONMENT SELECTION
 
@@ -20,14 +20,10 @@ unsigned long ms_last_link_changed = 0;  // last time crsf link changed
 unsigned long ms_last_led_changed = 0;   // last time led changed state in blink routine
 
 CrsfSerial crsf(UART_SELECT, CRSF_BAUDRATE); // pass any HardwareSerial port
-Servo servo1, servo2, servo3, servo4, servo5, servo6;
-bool External_LED_PIN1_State;
-bool External_LED_PIN2_State;
-bool External_LED_PIN3_State;
-bool External_LED_PIN4_State;
-bool External_LED_PIN5_State;
-bool External_LED_PIN6_State;
-
+uint16_t Servo_Value;
+int16_t Duty_Cycle_Value;
+uint8_t i;  // for loop incrementor
+uint slice_num[Number_of_Channel_Outputs]; //
 
 // Debug code which is used for sending channel data to USB serial monitor
 #define DEBUG 0    // 0 turns off serial debug, 1 turns on serial debug
@@ -59,26 +55,19 @@ void failsafe_output();
 
 void failsafe_output() 
 {
-  servo1.write(Failsafe_CH1_Value);
-  servo2.write(Failsafe_CH2_Value);
-  servo3.write(Failsafe_CH3_Value);
-  servo4.write(Failsafe_CH4_Value);
-  servo5.write(Failsafe_CH5_Value);
-  servo6.write(Failsafe_CH6_Value);
-  gpio_put(External_LED_PIN1, Failsafe_CH7_Value);
-  gpio_put(External_LED_PIN2, Failsafe_CH8_Value);
-  gpio_put(External_LED_PIN3, Failsafe_CH9_Value);
-  gpio_put(External_LED_PIN4, Failsafe_CH10_Value);
-  gpio_put(External_LED_PIN5, Failsafe_CH11_Value);
-  gpio_put(External_LED_PIN6, Failsafe_CH12_Value);
+  for (u16_t i=0; i<Number_of_Channel_Outputs; ++i)
+  {
+    if (Channel_Config_Setting[i] == Channel_Set_To_PWM | Channel_Config_Setting[i] == Channel_Set_To_DutyCycle)
+    {
+      pwm_set_gpio_level(Channel_GPIO_Mapping[i], Failsafe_Channel_Value[i]); // update PWM output value
+    }
+  }
 }
 
 
 void packetChannels()
 {
-  // Pin locations can be set up in calibrations.h
-  // Channels 1 - 6 are PWM outputs
-  // Channels 7 - 12 are LED ground side driver outputs
+  // Pin locations can be set up in board_defs.h
 
   // channelX_data is used for debug only
   if (DEBUG == 1)
@@ -97,114 +86,35 @@ void packetChannels()
     channel12_data = crsf.getChannel(12);
   }
 
-  servo1.write(crsf.getChannel(1));
-  servo2.write(crsf.getChannel(2));
-  servo3.write(crsf.getChannel(3));
-  servo4.write(crsf.getChannel(4));
-  servo5.write(crsf.getChannel(5));
-  servo6.write(crsf.getChannel(6));
-
-  if (crsf.getChannel(7) LED_Invert 1600)
+  for (i=0; i<Number_of_Channel_Outputs; ++i)
   {
-    if (External_LED_PIN1_State == 0)
+    if (Channel_Config_Setting[i] == Channel_Set_To_PWM)
     {
-      gpio_put(External_LED_PIN1, HIGH);
-      External_LED_PIN1_State = 1;
+      Servo_Value = crsf.getChannel(i+1);
+      if(Servo_Value < Servo_Min_us){
+        Servo_Value = Servo_Min_us;
+      }
+      if(Servo_Value > Servo_Max_us){
+        Servo_Value = Servo_Max_us;
+      }
+      pwm_set_gpio_level(Channel_GPIO_Mapping[i], Servo_Value); // update PWM output value
     }
-  }
-  else
-  {
-    if (External_LED_PIN1_State == 1)
-    {
-      gpio_put(External_LED_PIN1, LOW);
-      External_LED_PIN1_State = 0;
+    if (Channel_Config_Setting[i] == Channel_Set_To_DutyCycle)
+    { 
+      Duty_Cycle_Value = ((crsf.getChannel(i+1)-1000)/10);
+      if (Duty_Cycle_Value > 99){
+        Duty_Cycle_Value = 100;
+        }
+      if (Duty_Cycle_Value < 1){
+        Duty_Cycle_Value = 0;
+        }
+      if (Duty_Cycle_Invert == 1){
+        Duty_Cycle_Value = (Duty_Cycle_Value-100)*-1;
+        }
+      Duty_Cycle_Value = Duty_Cycle_Value * 200; // change from duty cycle percent to microseconds
+      pwm_set_gpio_level(Channel_GPIO_Mapping[i], Duty_Cycle_Value); // update PWM output value
     }
-  }
-
-  if (crsf.getChannel(8) LED_Invert 1600)
-  {
-    if (External_LED_PIN2_State == 0)
-    {
-      gpio_put(External_LED_PIN2, HIGH);
-      External_LED_PIN2_State = 1;
-    }
-  }
-  else
-  {
-    if (External_LED_PIN2_State == 1)
-    {
-      gpio_put(External_LED_PIN2, LOW);
-      External_LED_PIN2_State = 0;
-    }
-  }
-
-  if (crsf.getChannel(9) LED_Invert 1600)
-  {
-    if (External_LED_PIN3_State == 0)
-    {
-      gpio_put(External_LED_PIN3, HIGH);
-      External_LED_PIN3_State = 1;
-    }
-  }
-  else
-  {
-    if (External_LED_PIN3_State == 1)
-    {
-      gpio_put(External_LED_PIN3, LOW);
-      External_LED_PIN3_State = 0;
-    }
-  }
-
-  if (crsf.getChannel(10) LED_Invert 1600)
-  {
-    if (External_LED_PIN4_State == 0)
-    {
-      gpio_put(External_LED_PIN4, HIGH);
-      External_LED_PIN4_State = 1;
-    }
-  }
-  else
-  {
-    if (External_LED_PIN4_State == 1)
-    {
-      gpio_put(External_LED_PIN4, LOW);
-      External_LED_PIN4_State = 0;
-    }
-  }
-
-  if (crsf.getChannel(11) LED_Invert 1600)
-  {
-    if (External_LED_PIN5_State == 0)
-    {
-      gpio_put(External_LED_PIN5, HIGH);
-      External_LED_PIN5_State = 1;
-    }
-  }
-  else
-  {
-    if (External_LED_PIN5_State == 1)
-    {
-      gpio_put(External_LED_PIN5, LOW);
-      External_LED_PIN5_State = 0;
-    }
-  }
-
-  if (crsf.getChannel(12) LED_Invert 1600)
-  {
-    if (External_LED_PIN6_State == 0)
-    {
-      gpio_put(External_LED_PIN6, HIGH);
-      External_LED_PIN6_State = 1;
-    }
-  }
-  else
-  {
-    if (External_LED_PIN6_State == 1)
-    {
-      gpio_put(External_LED_PIN6, LOW); 
-      External_LED_PIN6_State = 0;
-    }
-  }
+  }   
 }
 
 
@@ -399,7 +309,6 @@ void led_loop() {
 #endif
 
 
-
 void setup()
 {
   Serial.begin(115200);
@@ -417,25 +326,34 @@ void setup()
   crsf.begin();
   serialEcho = true;
 
-  gpio_init (External_LED_PIN1); 
-  gpio_init (External_LED_PIN2);
-  gpio_init (External_LED_PIN3);
-  gpio_init (External_LED_PIN4);
-  gpio_init (External_LED_PIN5);
-  gpio_init (External_LED_PIN6);
-  gpio_set_dir(External_LED_PIN1, OUTPUT);
-  gpio_set_dir(External_LED_PIN2, OUTPUT);
-  gpio_set_dir(External_LED_PIN3, OUTPUT);
-  gpio_set_dir(External_LED_PIN4, OUTPUT);
-  gpio_set_dir(External_LED_PIN5, OUTPUT);
-  gpio_set_dir(External_LED_PIN6, OUTPUT);
 
-  servo1.attach(PWM_PIN1);
-  servo2.attach(PWM_PIN2);
-  servo3.attach(PWM_PIN3);
-  servo4.attach(PWM_PIN4);
-  servo5.attach(PWM_PIN5);
-  servo6.attach(PWM_PIN6);
+  // initialize 'config' with the default PMW config
+  pwm_config config = pwm_get_default_config();
+
+  // Modify PWM config timing,
+  pwm_config_set_clkdiv(&config, 133.f);   // set PWM clock to 1/125 of CPU clock speed,  (125,000,000 / 125 = 1,000,000hz)
+  pwm_config_set_wrap(&config, 20000);     // set PWM period to 20,000 cycles of PWM clock,  (1,000,000 / 20,000 = 50hz)
+
+  for(i=0; i<Number_of_Channel_Outputs; ++i){
+      // Set GPIO pins to be allocated to the PWM by using the Channel_GPIO_Mapping array
+      gpio_set_function(Channel_GPIO_Mapping[i], GPIO_FUNC_PWM);
+      
+      // Find out which PWM slice is connected to GPIO and store the slice number in an array that is aligned with Channel_GPIO_Mapping array
+      slice_num[i] = {pwm_gpio_to_slice_num(Channel_GPIO_Mapping[i])};
+
+      // initialize the slice
+      if(i % 2 == 0){
+          pwm_init(slice_num[i], &config, true);
+      }
+      // Set initial PWM of channel
+      //pwm_set_chan_level(slice_num[i], Channel_GPIO_Mapping[i], Failsafe_Channel_Value[i]);
+      pwm_set_gpio_level(Channel_GPIO_Mapping[i],Failsafe_Channel_Value[i]);
+
+      // Set the PWM running
+      if(i % 2 == 0){
+          pwm_set_enabled(slice_num[i], true);
+      }
+    }
 }
 
 
@@ -493,12 +411,6 @@ void loop1()   // for second core
   debugln();
   debug("Channel 12  ");
   debug(channel12_data);
-  debugln();
-  debug("External_LED_PIN6_State");
-  debug(External_LED_PIN6_State);
-  debugln();
-  debug("Channel 12 < 1600 (LED PIN6 true or false)");
-  debug(crsf.getChannel(12) < 1600);
   debugln();
   debug_delay(1000);
 }
