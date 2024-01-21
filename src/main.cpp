@@ -1,16 +1,8 @@
-#include <Arduino.h>
 #include <CrsfSerial.h>  // https://github.com/CapnBry/CRServoF/
-#include <Servo.h>       // https://guthub.com/earlephilhower/arduino-pico
 #include "board_defs.h"
 #include "hardware/pwm.h"
-#include "hardware/irq.h"
-#include "pico/stdlib.h"
-//#include <stdio.h>
-//#include "pico/time.h"
-#include "RP2040_PWM.h"
 
-RP2040_PWM* PWM_Instance;
-uint32_t frequency;
+
 // BOARD_ID SELECTION HAPPENS IN PLATFORMIO ENVIRONMENT SELECTION
 
 // Blink routine variables and state tracking
@@ -28,9 +20,10 @@ unsigned long ms_last_link_changed = 0;  // last time crsf link changed
 unsigned long ms_last_led_changed = 0;   // last time led changed state in blink routine
 
 CrsfSerial crsf(UART_SELECT, CRSF_BAUDRATE); // pass any HardwareSerial port
-Servo servo00, servo01, servo02, servo03, servo04, servo05, servo06, servo07, servo08, servo09, servo10, servo11, servo12, servo13, servo14, servo15;
-int16_t duty_cycle_value;
-
+uint16_t Servo_Value;
+int16_t Duty_Cycle_Value;
+uint8_t i;  // for loop incrementor
+uint slice_num[Number_of_Channel_Outputs]; //
 
 // Debug code which is used for sending channel data to USB serial monitor
 #define DEBUG 0    // 0 turns off serial debug, 1 turns on serial debug
@@ -64,70 +57,9 @@ void failsafe_output()
 {
   for (u16_t i=0; i<Number_of_Channel_Outputs; ++i)
   {
-    if (Channel_Config_Setting[i] == Channel_Set_To_PWM)
+    if (Channel_Config_Setting[i] == Channel_Set_To_PWM | Channel_Config_Setting[i] == Channel_Set_To_DutyCycle)
     {
-      if (i == 0){
-        servo00.write(Failsafe_Channel_Value[i]);
-        }
-      if (i == 1){
-        servo01.write(Failsafe_Channel_Value[i]);
-        }
-      if (i == 2){
-        servo02.write(Failsafe_Channel_Value[i]);
-        }
-      if (i == 3){
-        servo03.write(Failsafe_Channel_Value[i]);
-        }
-      if (i == 4){
-        servo04.write(Failsafe_Channel_Value[i]);
-        }
-      if (i == 5){
-        servo05.write(Failsafe_Channel_Value[i]);
-        }
-      if (i == 6){
-        servo06.write(Failsafe_Channel_Value[i]);
-        }
-      if (i == 7){
-        servo07.write(Failsafe_Channel_Value[i]);
-        }
-      if (i == 8){
-        servo08.write(Failsafe_Channel_Value[i]);
-        }
-      if (i == 9){
-        servo09.write(Failsafe_Channel_Value[i]);
-        }
-      if (i == 10){
-        servo10.write(Failsafe_Channel_Value[i]);
-        }
-      if (i == 11){
-        servo11.write(Failsafe_Channel_Value[i]);
-        }
-      if (i == 12){
-        servo12.write(Failsafe_Channel_Value[i]);
-        }
-      if (i == 13){
-        servo13.write(Failsafe_Channel_Value[i]);
-        }
-      if (i == 14){
-        servo14.write(Failsafe_Channel_Value[i]);
-        }
-      if (i == 15){
-        servo15.write(Failsafe_Channel_Value[i]);
-        }
-    }
-    if (Channel_Config_Setting[i] == Channel_Set_To_DutyCycle)
-    { 
-      duty_cycle_value = (Failsafe_Channel_Value[i]-1000)/10;
-      if (duty_cycle_value > 90){
-        duty_cycle_value = 100;
-      }
-      if (duty_cycle_value < 10){
-        duty_cycle_value = 0;
-      }
-      if (Duty_Cycle_Invert == 1){
-        duty_cycle_value = (duty_cycle_value-100)*-1;
-      }
-      pwm_set_gpio_level (Channel_GPIO_Mapping[i], duty_cycle_value);
+      pwm_set_gpio_level(Channel_GPIO_Mapping[i], Failsafe_Channel_Value[i]); // update PWM output value
     }
   }
 }
@@ -154,73 +86,33 @@ void packetChannels()
     channel12_data = crsf.getChannel(12);
   }
 
-  for (uint8_t i=0; i<Number_of_Channel_Outputs; ++i)
+  for (i=0; i<Number_of_Channel_Outputs; ++i)
   {
     if (Channel_Config_Setting[i] == Channel_Set_To_PWM)
     {
-      if (i == 0){
-        servo00.write(crsf.getChannel(i+1));
-        }
-      if (i == 1){
-        servo01.write(crsf.getChannel(i+1));
-        }
-      if (i == 2){
-        servo02.write(crsf.getChannel(i+1));
-        }
-      if (i == 3){
-        servo03.write(crsf.getChannel(i+1));
-        }
-      if (i == 4){
-        servo04.write(crsf.getChannel(i+1));
-        }
-      if (i == 5){
-        servo05.write(crsf.getChannel(i+1));
-        }
-      if (i == 6){
-        servo06.write(crsf.getChannel(i+1));
-        }
-      if (i == 7){
-        servo07.write(crsf.getChannel(i+1));
-        }
-      if (i == 8){
-        servo08.write(crsf.getChannel(i+1));
-        }
-      if (i == 9){
-        servo09.write(crsf.getChannel(i+1));
-        }
-      if (i == 10){
-        servo10.write(crsf.getChannel(i+1));
-        }
-      if (i == 11){
-        servo11.write(crsf.getChannel(i+1));
-        }
-      if (i == 12){
-        servo12.write(crsf.getChannel(i+1));
-        }
-      if (i == 13){
-        servo13.write(crsf.getChannel(i+1));
-        }
-      if (i == 14){
-        servo14.write(crsf.getChannel(i+1));
-        }
-      if (i == 15){
-        servo15.write(crsf.getChannel(i+1));
-        }
+      Servo_Value = crsf.getChannel(i+1);
+      if(Servo_Value < Servo_Min_us){
+        Servo_Value = Servo_Min_us;
+      }
+      if(Servo_Value > Servo_Max_us){
+        Servo_Value = Servo_Max_us;
+      }
+      pwm_set_gpio_level(Channel_GPIO_Mapping[i], Servo_Value); // update PWM output value
     }
     if (Channel_Config_Setting[i] == Channel_Set_To_DutyCycle)
     { 
-      duty_cycle_value = ((crsf.getChannel(i+1)-1000)/10);
-      if (duty_cycle_value > 90){
-        duty_cycle_value = 100;
-      }
-      if (duty_cycle_value < 10){
-        duty_cycle_value = 0;
-      }
+      Duty_Cycle_Value = ((crsf.getChannel(i+1)-1000)/10);
+      if (Duty_Cycle_Value > 99){
+        Duty_Cycle_Value = 100;
+        }
+      if (Duty_Cycle_Value < 1){
+        Duty_Cycle_Value = 0;
+        }
       if (Duty_Cycle_Invert == 1){
-        duty_cycle_value = (duty_cycle_value-100)*-1;
-      }
-      //pwm_set_gpio_level (Channel_GPIO_Mapping[i], duty_cycle_value);
-      PWM_Instance->setPWM(Channel_GPIO_Mapping[i], frequency, duty_cycle_value);
+        Duty_Cycle_Value = (Duty_Cycle_Value-100)*-1;
+        }
+      Duty_Cycle_Value = Duty_Cycle_Value * 200; // change from duty cycle percent to microseconds
+      pwm_set_gpio_level(Channel_GPIO_Mapping[i], Duty_Cycle_Value); // update PWM output value
     }
   }   
 }
@@ -416,15 +308,6 @@ void led_loop() {
 }
 #endif
 
-uint8_t Channel_Pin;
-
-void pwm_init_pin(uint8_t Channel_Pin) {
-    gpio_set_function(Channel_Pin, GPIO_FUNC_PWM);
-    uint slice_num = pwm_gpio_to_slice_num(Channel_Pin);
-    pwm_config config = pwm_get_default_config();
-    pwm_config_set_clkdiv(&config, 4.f);
-    pwm_init(slice_num, &config, true);
-}
 
 void setup()
 {
@@ -443,71 +326,34 @@ void setup()
   crsf.begin();
   serialEcho = true;
 
-  uint8_t Channel_Pin;
 
-  unsigned i;
-  for (i=0; i<Number_of_Channel_Outputs; ++i)
-  {
-    if (Channel_Config_Setting[i] == Channel_Set_To_PWM)
-    {
-      if (i == 0){
-        servo00.attach(Channel_GPIO_Mapping[i]);
-        }
-      if (i == 1){
-        servo01.attach(Channel_GPIO_Mapping[i]);
-        }
-      if (i == 2){
-        servo02.attach(Channel_GPIO_Mapping[i]);
-        }
-      if (i == 3){
-        servo03.attach(Channel_GPIO_Mapping[i]);
-        }
-      if (i == 4){
-        servo04.attach(Channel_GPIO_Mapping[i]);
-        }
-      if (i == 5){
-        servo05.attach(Channel_GPIO_Mapping[i]);
-        }
-      if (i == 6){
-        servo06.attach(Channel_GPIO_Mapping[i]);
-        }
-      if (i == 7){
-        servo07.attach(Channel_GPIO_Mapping[i]);
-        }
-      if (i == 8){
-        servo08.attach(Channel_GPIO_Mapping[i]);
-        }
-      if (i == 9){
-        servo09.attach(Channel_GPIO_Mapping[i]);
-        }
-      if (i == 10){
-        servo10.attach(Channel_GPIO_Mapping[i]);
-        }
-      if (i == 11){
-        servo11.attach(Channel_GPIO_Mapping[i]);
-        }
-      if (i == 12){
-        servo12.attach(Channel_GPIO_Mapping[i]);
-        }
-      if (i == 13){
-        servo13.attach(Channel_GPIO_Mapping[i]);
-        }
-      if (i == 14){
-        servo14.attach(Channel_GPIO_Mapping[i]);
-        }
-      if (i == 15){
-        servo15.attach(Channel_GPIO_Mapping[i]);
-        }
+  // initialize 'config' with the default PMW config
+  pwm_config config = pwm_get_default_config();
+
+  // Modify PWM config timing,
+  pwm_config_set_clkdiv(&config, 133.f);   // set PWM clock to 1/125 of CPU clock speed,  (125,000,000 / 125 = 1,000,000hz)
+  pwm_config_set_wrap(&config, 20000);     // set PWM period to 20,000 cycles of PWM clock,  (1,000,000 / 20,000 = 50hz)
+
+  for(i=0; i<Number_of_Channel_Outputs; ++i){
+      // Set GPIO pins to be allocated to the PWM by using the Channel_GPIO_Mapping array
+      gpio_set_function(Channel_GPIO_Mapping[i], GPIO_FUNC_PWM);
+      
+      // Find out which PWM slice is connected to GPIO and store the slice number in an array that is aligned with Channel_GPIO_Mapping array
+      slice_num[i] = {pwm_gpio_to_slice_num(Channel_GPIO_Mapping[i])};
+
+      // initialize the slice
+      if(i % 2 == 0){
+          pwm_init(slice_num[i], &config, true);
+      }
+      // Set initial PWM of channel
+      //pwm_set_chan_level(slice_num[i], Channel_GPIO_Mapping[i], Failsafe_Channel_Value[i]);
+      pwm_set_gpio_level(Channel_GPIO_Mapping[i],Failsafe_Channel_Value[i]);
+
+      // Set the PWM running
+      if(i % 2 == 0){
+          pwm_set_enabled(slice_num[i], true);
+      }
     }
-    if (Channel_Config_Setting[i] == Channel_Set_To_DutyCycle)
-    { 
-      Channel_Pin = Channel_GPIO_Mapping[i];
-      frequency = 10000;  // hz
-      PWM_Instance = new RP2040_PWM(Channel_Pin, frequency, 0);
-      // pwm_init_pin(Channel_Pin); 
-      // pwm_set_gpio_level (Channel_Pin, 0);
-    }
-  } 
 }
 
 

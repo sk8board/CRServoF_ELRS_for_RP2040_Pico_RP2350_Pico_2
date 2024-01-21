@@ -1,7 +1,5 @@
 #include "pico.h"
 
-
-
 #ifndef BOARD_DEFS
 #define BOARD_DEFS
 
@@ -9,17 +7,13 @@
 #define LED_TYPE_NEOPIXEL 2
 #define LED_TYPE_RGB 3
 
-#define PWM_Signal_Invert false  // True inverts the PMW signal for use with NPN driver
-//pwm_config_set_output_polarity(1 ,true, true)  //PWM Invert
-//pwm_gpio_to_channel()
-//pwm_gpio_to_slice_num()
-//pwm_set_output_polarity()
-
 // Channel_Function_Enable
 #define Channel_Set_To_Off 0
 #define Channel_Set_To_PWM 1
 #define Channel_Set_To_DutyCycle 2
 
+#define Servo_Min_us 1000
+#define Servo_Max_us 2000
 
 // Failsafe values, 1000 to 2000
 uint16_t Failsafe_Channel_Value [16] = {
@@ -188,7 +182,7 @@ uint16_t Failsafe_Channel_Value [16] = {
     };
 
     // NOTE: PWM Channels must be set in Slice Pairs
-    uint16_t Channel_GPIO_Mapping[Number_of_Channel_Outputs] ={
+    uint16_t Channel_GPIO_Mapping[Number_of_Channel_Outputs] = {
       29, //GPIO 29, ELRS Channel 1
       28, //GPIO 28, ELRS Channel 2
       27, //GPIO 27, ELRS Channel 3
