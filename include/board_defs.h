@@ -46,7 +46,7 @@ uint16_t Failsafe_Channel_Value [16] = {
     
     #define Duty_Cycle_Invert 0  // 1 enables inverting the duty cycle signal
 
-    // Set channel function (Off, Servo, or Duty Cycle) and GPIO pin number below
+    // Set channel function (Off, Servo, or Duty Cycle) 
     #define Number_of_Channel_Outputs 12  // NOTE: PWM Channels must be set in Slice Pairs
     uint16_t Channel_Config_Setting[Number_of_Channel_Outputs] = {
       Channel_Set_To_Servo, // Channel 1 config setting
@@ -63,6 +63,7 @@ uint16_t Failsafe_Channel_Value [16] = {
       Channel_Set_To_DutyCycle // Channel 12 config setting
     };
 
+    // Set GPIO pin number to channel number
     // NOTE: PWM Channels must be set in Slice Pairs
     uint16_t Channel_GPIO_Mapping[Number_of_Channel_Outputs] ={
       21, //GPIO 21, ELRS Channel 1
@@ -105,7 +106,7 @@ uint16_t Failsafe_Channel_Value [16] = {
     
     #define Duty_Cycle_Invert 0  // 1 enables inverting the duty cycle signal
 
-    // Set channel function (Off, Servo, or Duty Cycle) and GPIO pin number below
+    // Set channel function (Off, Servo, or Duty Cycle)
     #define Number_of_Channel_Outputs 10  // NOTE: PWM Channels must be set in Slice Pairs
     uint16_t Channel_Config_Setting[Number_of_Channel_Outputs] = {
       Channel_Set_To_Servo, // Channel 1 config setting
@@ -120,6 +121,7 @@ uint16_t Failsafe_Channel_Value [16] = {
       Channel_Set_To_DutyCycle, // Channel 10 config setting
     };
 
+    // Set GPIO pin number to channel number
     // NOTE: PWM Channels must be set in Slice Pairs
     uint16_t Channel_GPIO_Mapping[Number_of_Channel_Outputs] = {
       0, //GPIO 0, ELRS Channel 1
@@ -181,6 +183,7 @@ uint16_t Failsafe_Channel_Value [16] = {
       Channel_Set_To_DutyCycle // Channel 12 config setting
     };
 
+    // Set GPIO pin number to channel number
     // NOTE: PWM Channels must be set in Slice Pairs
     uint16_t Channel_GPIO_Mapping[Number_of_Channel_Outputs] = {
       29, //GPIO 29, ELRS Channel 1
@@ -234,7 +237,7 @@ uint16_t Failsafe_Channel_Value [16] = {
 
     #define Duty_Cycle_Invert 0  // 1 enables inverting the duty cycle signal
 
-    // Set channel function (Off, Servo, or Duty Cycle) and GPIO pin number below
+    // Set channel function (Off, Servo, or Duty Cycle)
     #define Number_of_Channel_Outputs 8  // NOTE: PWM Channels must be set in Slice Pairs
     uint16_t Channel_Config_Setting[Number_of_Channel_Outputs] = {
       Channel_Set_To_Servo, // Channel 1 config setting
@@ -247,6 +250,7 @@ uint16_t Failsafe_Channel_Value [16] = {
       Channel_Set_To_DutyCycle, // Channel 8 config setting
     };
 
+    // Set GPIO pin number to channel number
     // NOTE: PWM Channels must be set in Slice Pairs
     uint16_t Channel_GPIO_Mapping[Number_of_Channel_Outputs] ={
       26, //GPIO 29, ELRS Channel 1
@@ -311,7 +315,7 @@ uint16_t Failsafe_Channel_Value [16] = {
 
     #define Duty_Cycle_Invert 0  // 1 enables inverting the duty cycle signal
 
-    // Set channel function (Off, Servo, or Duty Cycle) and GPIO pin number below
+    // Set channel function (Off, Servo, or Duty Cycle)
     #define Number_of_Channel_Outputs 12  // NOTE: PWM Channels must be set in Slice Pairs
     uint16_t Channel_Config_Setting[Number_of_Channel_Outputs] = {
       Channel_Set_To_Servo, // Channel 1 config setting
@@ -328,6 +332,7 @@ uint16_t Failsafe_Channel_Value [16] = {
       Channel_Set_To_DutyCycle // Channel 12 config setting
     };
 
+    // Set GPIO pin number to channel number
     // NOTE: PWM Channels must be set in Slice Pairs
     uint16_t Channel_GPIO_Mapping[Number_of_Channel_Outputs] ={
       21, //GPIO 21, ELRS Channel 1
