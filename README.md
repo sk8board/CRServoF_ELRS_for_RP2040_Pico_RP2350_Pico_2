@@ -20,7 +20,7 @@ Another example is the LED pins could be connected to a high current relay that 
 
 [Here are RC transmitters](https://www.radiomasterrc.com/collections/transmitter) that work with ExpressLRS (ELRS).
 
-CRServoF_ELRS_for_RP2040_Pico has a portion from https://github.com/CapnBry/CRServoF, (which is ExpressLRS (ELRS) to servos for STM32 micros) and another portion from https://github.com/mikeneiderhauser/CRSFJoystick, (which is ExpressLRS to USB video game dongle for RP2040 Pi Pico). The servo library comes from https://github.com/earlephilhower/arduino-pico .
+CRServoF_ELRS_for_RP2040_Pico has a portion from https://github.com/CapnBry/CRServoF, (which is ExpressLRS (ELRS) to servos for STM32 micros) and another portion from https://github.com/mikeneiderhauser/CRSFJoystick, (which is ExpressLRS to USB video game dongle for RP2040 Pi Pico).
 
 ![ELRS Pico Receiver](https://github.com/sk8board/CRServoF_ELRS_for_RP2040_Pico/assets/96895142/c6fe0ac9-0438-4121-bc42-f2b662a814d6)
 
@@ -34,7 +34,7 @@ If you want to use this software in the current state without compiling, then th
 
 Waveshare RP2040 Zero. Other types of RP2040 microprocessor boards can be used. Please reference the Board Pinout section below for your board.
 
-HappyModel EP2 receiver. Other types of ExpressLRS (ELRS) receivers can be used. EP2 is a good choice if a small size is required for your project.
+HappyModel EP2 receiver or other brand of nano ExpressLRS (ELRS) receiver.
 
 ULN2003A transistor array. Functions as a switch with up to 0.5 amp maximum capacity.
 
