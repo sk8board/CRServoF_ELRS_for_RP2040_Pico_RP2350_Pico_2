@@ -65,9 +65,9 @@ For example, for the Pi Pico, the pins are defined as the values shown in the re
 
 ![image](https://github.com/sk8board/CRServoF_ELRS_for_RP2040_Pico/assets/96895142/5a16e7aa-889e-49ec-bfcc-44d75272b38d)
 
-![image](https://github.com/sk8board/CRServoF_ELRS_for_RP2040_Pico/assets/96895142/751cc236-14b1-486f-ae0d-f0c380d63e17)
+![image](https://github.com/sk8board/CRServoF_ELRS_for_RP2040_Pico/assets/96895142/914288ab-c057-4510-b180-132461d0ef29)
 
-![image](https://github.com/sk8board/CRServoF_ELRS_for_RP2040_Pico/assets/96895142/857eb5b9-4af6-46e9-8bbb-6be8c19ffcfd)
+![image](https://github.com/sk8board/CRServoF_ELRS_for_RP2040_Pico/assets/96895142/ffe2c00c-5067-41ee-b1b6-32c7f1924cea)
 
 ![image](https://github.com/sk8board/CRServoF_ELRS_for_RP2040_Pico/assets/96895142/36ba0081-64e7-4d3e-875d-375b00ba872d)
 
