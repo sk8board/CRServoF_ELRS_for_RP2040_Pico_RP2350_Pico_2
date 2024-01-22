@@ -9,7 +9,7 @@
 
 // Channel_Function_Enable
 #define Channel_Set_To_Off 0
-#define Channel_Set_To_PWM 1
+#define Channel_Set_To_Servo 1
 #define Channel_Set_To_DutyCycle 2
 
 #define Servo_Min_us 1000
@@ -46,21 +46,21 @@ uint16_t Failsafe_Channel_Value [16] = {
     
     #define Duty_Cycle_Invert 0  // 1 enables inverting the duty cycle signal
 
-    // Set channel function (off, PWM, or Duty Cycle) and GPIO pin number below
+    // Set channel function (Off, Servo, or Duty Cycle) and GPIO pin number below
     #define Number_of_Channel_Outputs 12  // NOTE: PWM Channels must be set in Slice Pairs
     uint16_t Channel_Config_Setting[Number_of_Channel_Outputs] = {
-      Channel_Set_To_PWM, // Channel 1 config setting
-      Channel_Set_To_PWM, // Channel 2 config setting
-      Channel_Set_To_PWM, // Channel 3 config setting
-      Channel_Set_To_PWM, // Channel 4 config setting
-      Channel_Set_To_PWM, // Channel 5 config setting
-      Channel_Set_To_PWM, // Channel 6 config setting
-      Channel_Set_To_PWM, // Channel 7 config setting
-      Channel_Set_To_PWM, // Channel 8 config setting
-      Channel_Set_To_PWM, // Channel 9 config setting
-      Channel_Set_To_PWM, // Channel 10 config setting
-      Channel_Set_To_PWM, // Channel 11 config setting
-      Channel_Set_To_PWM // Channel 12 config setting
+      Channel_Set_To_Servo, // Channel 1 config setting
+      Channel_Set_To_Servo, // Channel 2 config setting
+      Channel_Set_To_Servo, // Channel 3 config setting
+      Channel_Set_To_Servo, // Channel 4 config setting
+      Channel_Set_To_Servo, // Channel 5 config setting
+      Channel_Set_To_Servo, // Channel 6 config setting
+      Channel_Set_To_DutyCycle, // Channel 7 config setting
+      Channel_Set_To_DutyCycle, // Channel 8 config setting
+      Channel_Set_To_DutyCycle, // Channel 9 config setting
+      Channel_Set_To_DutyCycle, // Channel 10 config setting
+      Channel_Set_To_DutyCycle, // Channel 11 config setting
+      Channel_Set_To_DutyCycle // Channel 12 config setting
     };
 
     // NOTE: PWM Channels must be set in Slice Pairs
@@ -105,19 +105,19 @@ uint16_t Failsafe_Channel_Value [16] = {
     
     #define Duty_Cycle_Invert 0  // 1 enables inverting the duty cycle signal
 
-    // Set channel function (off, PWM, or Duty Cycle) and GPIO pin number below
+    // Set channel function (Off, Servo, or Duty Cycle) and GPIO pin number below
     #define Number_of_Channel_Outputs 10  // NOTE: PWM Channels must be set in Slice Pairs
     uint16_t Channel_Config_Setting[Number_of_Channel_Outputs] = {
-      Channel_Set_To_PWM, // Channel 1 config setting
-      Channel_Set_To_PWM, // Channel 2 config setting
-      Channel_Set_To_PWM, // Channel 3 config setting
-      Channel_Set_To_PWM, // Channel 4 config setting
-      Channel_Set_To_PWM, // Channel 5 config setting
-      Channel_Set_To_PWM, // Channel 6 config setting
-      Channel_Set_To_PWM, // Channel 7 config setting
-      Channel_Set_To_PWM, // Channel 8 config setting
-      Channel_Set_To_PWM, // Channel 9 config setting
-      Channel_Set_To_PWM, // Channel 10 config setting
+      Channel_Set_To_Servo, // Channel 1 config setting
+      Channel_Set_To_Servo, // Channel 2 config setting
+      Channel_Set_To_Servo, // Channel 3 config setting
+      Channel_Set_To_Servo, // Channel 4 config setting
+      Channel_Set_To_Servo, // Channel 5 config setting
+      Channel_Set_To_Servo, // Channel 6 config setting
+      Channel_Set_To_DutyCycle, // Channel 7 config setting
+      Channel_Set_To_DutyCycle, // Channel 8 config setting
+      Channel_Set_To_DutyCycle, // Channel 9 config setting
+      Channel_Set_To_DutyCycle, // Channel 10 config setting
     };
 
     // NOTE: PWM Channels must be set in Slice Pairs
@@ -164,15 +164,15 @@ uint16_t Failsafe_Channel_Value [16] = {
 
     #define Duty_Cycle_Invert 0  // 1 enables inverting the duty cycle signal
 
-    // Set channel function (off, PWM, or Duty Cycle) 
+    // Set channel function (Off, Servo, or Duty Cycle) 
     #define Number_of_Channel_Outputs 12  // NOTE: PWM Channels must be set in Slice Pairs
     uint16_t Channel_Config_Setting[Number_of_Channel_Outputs] = {
-      Channel_Set_To_PWM, // Channel 1 config setting
-      Channel_Set_To_PWM, // Channel 2 config setting
-      Channel_Set_To_PWM, // Channel 3 config setting
-      Channel_Set_To_PWM, // Channel 4 config setting
-      Channel_Set_To_PWM, // Channel 5 config setting
-      Channel_Set_To_PWM, // Channel 6 config setting
+      Channel_Set_To_Servo, // Channel 1 config setting
+      Channel_Set_To_Servo, // Channel 2 config setting
+      Channel_Set_To_Servo, // Channel 3 config setting
+      Channel_Set_To_Servo, // Channel 4 config setting
+      Channel_Set_To_Servo, // Channel 5 config setting
+      Channel_Set_To_Servo, // Channel 6 config setting
       Channel_Set_To_DutyCycle, // Channel 7 config setting
       Channel_Set_To_DutyCycle, // Channel 8 config setting
       Channel_Set_To_DutyCycle, // Channel 9 config setting
@@ -234,18 +234,17 @@ uint16_t Failsafe_Channel_Value [16] = {
 
     #define Duty_Cycle_Invert 0  // 1 enables inverting the duty cycle signal
 
-    // Set channel function (off, PWM, or Duty Cycle) and GPIO pin number below
-    #define Number_of_Channel_Outputs 9  // NOTE: PWM Channels must be set in Slice Pairs
+    // Set channel function (Off, Servo, or Duty Cycle) and GPIO pin number below
+    #define Number_of_Channel_Outputs 8  // NOTE: PWM Channels must be set in Slice Pairs
     uint16_t Channel_Config_Setting[Number_of_Channel_Outputs] = {
-      Channel_Set_To_PWM, // Channel 1 config setting
-      Channel_Set_To_PWM, // Channel 2 config setting
-      Channel_Set_To_PWM, // Channel 3 config setting
-      Channel_Set_To_PWM, // Channel 4 config setting
-      Channel_Set_To_PWM, // Channel 5 config setting
-      Channel_Set_To_PWM, // Channel 6 config setting
-      Channel_Set_To_PWM, // Channel 7 config setting
-      Channel_Set_To_PWM, // Channel 8 config setting
-      Channel_Set_To_PWM, // Channel 9 config setting
+      Channel_Set_To_Servo, // Channel 1 config setting
+      Channel_Set_To_Servo, // Channel 2 config setting
+      Channel_Set_To_Servo, // Channel 3 config setting
+      Channel_Set_To_Servo, // Channel 4 config setting
+      Channel_Set_To_Servo, // Channel 5 config setting
+      Channel_Set_To_Servo, // Channel 6 config setting
+      Channel_Set_To_DutyCycle, // Channel 7 config setting
+      Channel_Set_To_DutyCycle, // Channel 8 config setting
     };
 
     // NOTE: PWM Channels must be set in Slice Pairs
@@ -258,7 +257,6 @@ uint16_t Failsafe_Channel_Value [16] = {
       7, //GPIO 14, ELRS Channel 6
       2, //GPIO 2, ELRS Channel 7
       3, //GPIO 3, ELRS Channel 8
-      4, //GPIO 4 ELRS Channel 9
     };
 
     //#include <Adafruit_NeoPixel.h>
@@ -313,15 +311,15 @@ uint16_t Failsafe_Channel_Value [16] = {
 
     #define Duty_Cycle_Invert 0  // 1 enables inverting the duty cycle signal
 
-    // Set channel function (off, PWM, or Duty Cycle) and GPIO pin number below
+    // Set channel function (Off, Servo, or Duty Cycle) and GPIO pin number below
     #define Number_of_Channel_Outputs 12  // NOTE: PWM Channels must be set in Slice Pairs
     uint16_t Channel_Config_Setting[Number_of_Channel_Outputs] = {
-      Channel_Set_To_PWM, // Channel 1 config setting
-      Channel_Set_To_PWM, // Channel 2 config setting
-      Channel_Set_To_PWM, // Channel 3 config setting
-      Channel_Set_To_PWM, // Channel 4 config setting
-      Channel_Set_To_PWM, // Channel 5 config setting
-      Channel_Set_To_PWM, // Channel 6 config setting
+      Channel_Set_To_Servo, // Channel 1 config setting
+      Channel_Set_To_Servo, // Channel 2 config setting
+      Channel_Set_To_Servo, // Channel 3 config setting
+      Channel_Set_To_Servo, // Channel 4 config setting
+      Channel_Set_To_Servo, // Channel 5 config setting
+      Channel_Set_To_Servo, // Channel 6 config setting
       Channel_Set_To_DutyCycle, // Channel 7 config setting
       Channel_Set_To_DutyCycle, // Channel 8 config setting
       Channel_Set_To_DutyCycle, // Channel 9 config setting

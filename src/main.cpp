@@ -47,7 +47,7 @@ void failsafe_output()
 {
   for (i=0; i<Number_of_Channel_Outputs; ++i)
   {
-    if (Channel_Config_Setting[i] == Channel_Set_To_PWM | Channel_Config_Setting[i] == Channel_Set_To_DutyCycle)
+    if (Channel_Config_Setting[i] == Channel_Set_To_Servo | Channel_Config_Setting[i] == Channel_Set_To_DutyCycle)
     {
       pwm_set_gpio_level(Channel_GPIO_Mapping[i], Failsafe_Channel_Value[i]); // update PWM output value with failsafe value
     }
@@ -69,7 +69,7 @@ void packetChannels()
 
   for (i=0; i<Number_of_Channel_Outputs; ++i)
   {
-    if (Channel_Config_Setting[i] == Channel_Set_To_PWM)
+    if (Channel_Config_Setting[i] == Channel_Set_To_Servo)
     {
       Servo_Value = crsf.getChannel(i+1);
       if(Servo_Value < Servo_Min_us){
@@ -83,10 +83,10 @@ void packetChannels()
     if (Channel_Config_Setting[i] == Channel_Set_To_DutyCycle)
     { 
       Duty_Cycle_Value = ((crsf.getChannel(i+1)-1000)/10);
-      if (Duty_Cycle_Value > 99){
+      if (Duty_Cycle_Value > 90){
         Duty_Cycle_Value = 100;
         }
-      if (Duty_Cycle_Value < 1){
+      if (Duty_Cycle_Value < 10){
         Duty_Cycle_Value = 0;
         }
       if (Duty_Cycle_Invert == 1){
