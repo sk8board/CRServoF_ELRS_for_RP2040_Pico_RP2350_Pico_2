@@ -12,11 +12,11 @@ If you don't want to bother with the recommended Windows configuration, then try
 
 CRServoF_ELRS_for_RP2040_Pico is an RC receiver project for RC surface models and STEM robots that use ExpressLRS and EdgeTX.
 
-This RC receiver has 6 PWM servo channels and 6 LED channels. EdgeTX will allow the user to customize how the LED channels can be used on the RC model
+This RC receiver has 6 PWM servo channels and 6 duty cycle LED channels. EdgeTX will allow the user to customize how the LED channels can be used on the RC model
 
 For example, the user can easily program, in EdgeTX, to have the headlights turn on with a button on the RC transmitter or have the headlights turn on automatically when the throttle is applied.
 
-Another example is the LED pins could be connected to a high current relay that would be used on a STEM robot. The versatility of EdgeTX (RC transmitter software) and ELRS make this an ideal receiver for STEM robots.
+Another example is the duty cycle pins could be connected to a high current relay (duty cycle 0% "Off" and 100% "On") that would be used on a STEM robot. The versatility of EdgeTX (RC transmitter software) and ELRS make this an ideal receiver for STEM robots.
 
 [Here are RC transmitters](https://www.radiomasterrc.com/collections/transmitter) that work with ExpressLRS (ELRS).
 
