@@ -54,15 +54,20 @@ The default failsafe values are found in the include file, `board_defs.h`.
 
 If you would like different failsafe values, simply edit the include file, then build the new `firmware.uf2` file.
 
-![image](https://github.com/sk8board/CRServoF_ELRS_for_RP2040_Pico/assets/96895142/a28e3b99-f194-4c22-b3fa-ff9a471b743c)
+![image](https://github.com/sk8board/CRServoF_ELRS_for_RP2040_Pico/assets/96895142/6bf2b9e2-0c16-41be-bff7-eeb552a1f49d)
+
 
 ## Board Pinout
 
-PWM pins, LED pins, and UART pins are defined in the include file, `board_defs.h`. 
+PWM pins and UART pins are defined in the include file, `board_defs.h`. 
 
 For example, for the Pi Pico, the pins are defined as the values shown in the red boxes below.
 
-![image](https://github.com/sk8board/CRServoF_ELRS_for_RP2040_Pico/assets/96895142/a3cba775-a492-4132-90be-b17d692b757b)
+![image](https://github.com/sk8board/CRServoF_ELRS_for_RP2040_Pico/assets/96895142/5a16e7aa-889e-49ec-bfcc-44d75272b38d)
+
+![image](https://github.com/sk8board/CRServoF_ELRS_for_RP2040_Pico/assets/96895142/751cc236-14b1-486f-ae0d-f0c380d63e17)
+
+![image](https://github.com/sk8board/CRServoF_ELRS_for_RP2040_Pico/assets/96895142/ceb12a21-baac-4beb-9733-213789caa596)
 
 ![image](https://github.com/sk8board/CRServoF_ELRS_for_RP2040_Pico/assets/96895142/36ba0081-64e7-4d3e-875d-375b00ba872d)
 
