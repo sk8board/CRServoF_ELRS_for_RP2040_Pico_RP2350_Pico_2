@@ -27,8 +27,8 @@ uint slice_num[Number_of_Channel_Outputs];
 
 // Debug code which is used for sending channel data to USB serial monitor
 #define DEBUG 0    // 0 turns off serial debug, 1 turns on serial debug
-#define Number_of_Debug_Channels 12
-uint16_t channel_data[Number_of_Debug_Channels];
+#define Number_of_Debug_Channels 14
+//uint16_t channel_data[Number_of_Debug_Channels];
 #if DEBUG == 1
 #define debug(x) Serial.print(x)
 #define debugln(x) Serial.println(x)
@@ -45,8 +45,7 @@ void failsafe_output();
 
 void failsafe_output() 
 {
-  for (i=0; i<Number_of_Channel_Outputs; ++i)
-  {
+  for (i=0; i<Number_of_Channel_Outputs; ++i){
     if (Channel_Config_Setting[i] == Channel_Set_To_Servo | Channel_Config_Setting[i] == Channel_Set_To_DutyCycle)
     {
       pwm_set_gpio_level(Channel_GPIO_Mapping[i], Failsafe_Channel_Value[i]); // update PWM output value with failsafe value
@@ -59,18 +58,20 @@ void packetChannels()
 {
   // Pin locations can be set up in board_defs.h
 
-  // channelX_data is used for debug only
-  if (DEBUG == 1)
-  {    
+  // channel_data is used for debug only
+  if (DEBUG == 1){    
     for(i=0; i<Number_of_Debug_Channels; ++i){
-      channel_data[i] = crsf.getChannel(i+1);
+      debug("Channel");
+      debug(i+1);
+      debug(" ");
+      debug(crsf.getChannel(i+1));
+      debugln();
     }
   }
 
-  for (i=0; i<Number_of_Channel_Outputs; ++i)
-  {
-    if (Channel_Config_Setting[i] == Channel_Set_To_Servo)
-    {
+
+  for (i=0; i<Number_of_Channel_Outputs; ++i){
+    if (Channel_Config_Setting[i] == Channel_Set_To_Servo){
       Servo_Value = crsf.getChannel(i+1);
       if(Servo_Value < Servo_Min_us){
         Servo_Value = Servo_Min_us;
@@ -80,8 +81,7 @@ void packetChannels()
       }
       pwm_set_gpio_level(Channel_GPIO_Mapping[i], Servo_Value); // update PWM output value
     }
-    if (Channel_Config_Setting[i] == Channel_Set_To_DutyCycle)
-    { 
+    if (Channel_Config_Setting[i] == Channel_Set_To_DutyCycle){ 
       Duty_Cycle_Value = ((crsf.getChannel(i+1)-1000)/10);
       if (Duty_Cycle_Value > 90){
         Duty_Cycle_Value = 100;
@@ -92,8 +92,13 @@ void packetChannels()
       if (Duty_Cycle_Invert == 1){
         Duty_Cycle_Value = (Duty_Cycle_Value-100)*-1;
         }
-      Duty_Cycle_Value = Duty_Cycle_Value * 200; // change from duty cycle percent to microseconds
+      Duty_Cycle_Value = Duty_Cycle_Value * 100; // change from duty cycle percent to microseconds
       pwm_set_gpio_level(Channel_GPIO_Mapping[i], Duty_Cycle_Value); // update PWM output value
+      debug("Duty Cycle Channel ");
+      debug(i+1);
+      debug(" ");
+      debug(Duty_Cycle_Value);
+      debugln();
     }
   }   
 }
@@ -120,8 +125,7 @@ void crsfLinkDown()
 
 static void passthroughBegin(uint32_t baud)
 {
-  if (baud != crsf.getBaud())
-  {
+  if (baud != crsf.getBaud()){
     // Force a reboot command since we want to send the reboot
     // at 420000 then switch to what the user wanted
     const uint8_t rebootpayload[] = { 'b', 'l' };
@@ -133,8 +137,7 @@ static void passthroughBegin(uint32_t baud)
 }
 
 
-static void crsfOobData(uint8_t b)
-{
+static void crsfOobData(uint8_t b){
   Serial.write(b);
 }
 
@@ -144,12 +147,10 @@ static void crsfOobData(uint8_t b)
 */
 
 
-static bool handleSerialCommand(char *cmd)
-{
+static bool handleSerialCommand(char *cmd){
   // Fake a CRSF RX on UART6
   bool prompt = true;
-  if (strcmp(cmd, "#") == 0)
-  {
+  if (strcmp(cmd, "#") == 0){
     debugln("Fake CLI Mode, type 'exit' or 'help' to do nothing\r\n");
     serialEcho = true;
   }
@@ -166,8 +167,7 @@ static bool handleSerialCommand(char *cmd)
   else if (strcmp(cmd, "get serialrx_halfduplex") == 0)
       debugln("serialrx_halfduplex = OFF\r\n");
 
-  else if (strncmp(cmd, "serialpassthrough 5 ", 20) == 0)
-  {
+  else if (strncmp(cmd, "serialpassthrough 5 ", 20) == 0){
     debugln(cmd);
 
     unsigned int baud = atoi(&cmd[20]);
@@ -186,18 +186,14 @@ static bool handleSerialCommand(char *cmd)
 }
 
 
-static void checkSerialInNormal()
-{
-  while (Serial.available())
-  {
+static void checkSerialInNormal(){
+  while (Serial.available()){
     char c = Serial.read();
     if (serialEcho && c != '\n')
         Serial.write(c);
 
-    if (c == '\r' || c == '\n')
-    {
-        if (serialInBuffLen != 0)
-        {
+    if (c == '\r' || c == '\n'){
+        if (serialInBuffLen != 0){
           Serial.write('\n');
           serialInBuff[serialInBuffLen] = '\0';
           serialInBuffLen = 0;
@@ -208,8 +204,7 @@ static void checkSerialInNormal()
               return;
         }
       }
-      else
-      {
+      else{
         serialInBuff[serialInBuffLen++] = c;
         // if the buffer fills without getting a newline, just reset
         if (serialInBuffLen >= sizeof(serialInBuff))
@@ -219,14 +214,12 @@ static void checkSerialInNormal()
 }
 
 
-static void checkSerialInPassthrough()
-{
+static void checkSerialInPassthrough(){
   static uint32_t lastData = 0;
   static bool LED = false;
   bool gotData = false;
   unsigned int avail;
-  while ((avail = Serial.available()) != 0)
-  {
+  while ((avail = Serial.available()) != 0){
     uint8_t buf[16];
     avail = Serial.readBytes((char *)buf, min(sizeof(buf), avail));
     crsf.write(buf, avail);
@@ -239,15 +232,13 @@ static void checkSerialInPassthrough()
       lastData = millis();
 
   // Turn off LED 1s after last data
-  else if (LED && (millis() - lastData > 1000))
-  {
+  else if (LED && (millis() - lastData > 1000)){
     LED = false;
     led_off();
   }
 
   // Short blink LED after timeout
-  else if (millis() - lastData > 5000)
-  {
+  else if (millis() - lastData > 5000){
     lastData = 0;
     led_on();
     delay(200);
@@ -280,8 +271,7 @@ void led_loop() {
         led_state = !led_state;  // toggle led state
       }
     }
-    else
-    {
+    else{
       // ensure the led is off if the blink routine expired and link is down
       led_off();
     }
@@ -290,14 +280,12 @@ void led_loop() {
 #endif
 
 
-void setup()
-{
+void setup(){
   Serial.begin(115200);
   UART_SELECT.setTX(CRSF_TX);
   UART_SELECT.setRX(CRSF_RX);
   boardSetup();
   crsfLinkDown();
-
 
   // Attach the channels callback
   crsf.onPacketChannels = &packetChannels;
@@ -311,16 +299,23 @@ void setup()
   // initialize 'config' with the default PMW config
   pwm_config config = pwm_get_default_config();
 
-  // Modify PWM config timing,
-  pwm_config_set_clkdiv(&config, 133.f);   // set PWM clock to 1/125 of CPU clock speed,  (125,000,000 / 125 = 1,000,000hz)
-  pwm_config_set_wrap(&config, 20000);     // set PWM period to 20,000 cycles of PWM clock,  (1,000,000 / 20,000 = 50hz)
-
   for(i=0; i<Number_of_Channel_Outputs; ++i){
       // Set GPIO pins to be allocated to the PWM by using the Channel_GPIO_Mapping array
       gpio_set_function(Channel_GPIO_Mapping[i], GPIO_FUNC_PWM);
       
       // Find out which PWM slice is connected to GPIO and store the slice number in an array that is aligned with Channel_GPIO_Mapping array
       slice_num[i] = {pwm_gpio_to_slice_num(Channel_GPIO_Mapping[i])};
+
+      // Modify PWM config timing to 50hz
+      if(Channel_Config_Setting[i] == Channel_Set_To_Servo){
+        pwm_set_clkdiv(slice_num[i], 133.f);  // set PWM clock to 1/125 of CPU clock speed,  (125,000,000 / 125 = 1,000,000hz)
+        pwm_set_wrap(slice_num[i], 20000);    // set PWM period to 20,000 cycles of PWM clock,  (1,000,000 / 20,000 = 50hz)
+      }
+      // Modify PWM config timing to 100hz
+      if(Channel_Config_Setting[i] == Channel_Set_To_DutyCycle){
+        pwm_set_clkdiv(slice_num[i], 133.f);  // set PWM clock to 1/125 of CPU clock speed,  (125,000,000 / 125 = 1,000,000hz)
+        pwm_set_wrap(slice_num[i], 10000);    // set PWM period to 10,000 cycles of PWM clock,  (1,000,000 / 10,000 = 100hz)
+      }
 
       // initialize the slice
       if(i % 2 == 0){
@@ -346,23 +341,4 @@ void loop()
   #ifdef BLINK_ENABLED
   led_loop();
   #endif
-}
-
-
-void setup1()  // for second core
-{
-
-}
-
-
-void loop1()   // for second core
-{
-  for(i=0; i<Number_of_Debug_Channels; ++i){
-    debug("Channel");
-    debug(i+1);
-    debug(" ");
-    debug(channel_data[i]);
-    debugln();
-  }
-  debug_delay(1000);
 }
