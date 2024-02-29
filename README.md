@@ -71,4 +71,4 @@ For example, for the Pi Pico, the pins are defined as the values shown in the re
 
 ![image](https://github.com/sk8board/CRServoF_ELRS_for_RP2040_Pico/assets/96895142/36ba0081-64e7-4d3e-875d-375b00ba872d)
 
-
+[Raspberry Pi Pico Complete Pinout](https://github.com/sk8board/CRServoF_ELRS_for_RP2040_Pico/blob/main/hardware/Raspberry%20Pi%20Pico%20Pinout.pdf)
