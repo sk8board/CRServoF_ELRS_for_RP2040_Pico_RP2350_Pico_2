@@ -28,7 +28,7 @@ CRServoF_ELRS_for_RP2040_Pico has a portion from https://github.com/CapnBry/CRSe
 
 NOTE: This is experimental software/hardware and there is no guarantee of stability or reliability. **USE AT YOUR OWN RISK**.
 
-If you want to use this software in the current state without compiling, then the `firmware.uf2` files can be found here for [Pi Pico](.pio/build/pico),  [Pi Pico W](.pio/build/pico_w),  [Seeed XAIO RP2040](.pio/build/seeedxaio2040),  [Tiny 2040](.pio/build/tiny2040), and  [Waveshare RP2040-Zero](.pio/build/wavesharerp2040zero).
+If you want to use this software in the current state without compiling, then the `firmware.uf2` files can be found here for [Pi Pico](.pio/build/pico),  [Pi Pico W](.pio/build/pico_w), [Pi Pico 2](.pio/build/rpipico2) [Seeed XAIO RP2040](.pio/build/seeedxaio2040),  [Tiny 2040](.pio/build/tiny2040), and  [Waveshare RP2040-Zero](.pio/build/wavesharerp2040zero).
 
 ## BOM
 
