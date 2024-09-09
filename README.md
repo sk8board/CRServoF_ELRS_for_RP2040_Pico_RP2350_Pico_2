@@ -1,6 +1,6 @@
 ## CRServoF_ELRS_for_RP2040_Pico
 
-NOTE: This project is a work in progress for Raspberry Pi microprocessor RP2040 boards like the Pico. This project does not support other microprocessors.  
+NOTE: This project is a work in progress for Raspberry Pi microprocessor RP2040 and RP2350 boards like the Pico and Pico 2. This project does not support other microprocessors.  
 
 NOTE: This is experimental software/hardware and there is no guarantee of stability or reliability. **USE AT YOUR OWN RISK**.
 
