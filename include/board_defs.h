@@ -362,4 +362,61 @@ uint16_t Failsafe_Channel_Value [16] = {
     }
 #endif
 
+// PiPico2
+#if BOARD_ID == 6
+    #define UART_SELECT Serial2
+    #define CRSF_TX 4  // physical 6 (UART1 == Serial2)
+    #define CRSF_RX 5  // physical 7 (UART1 == Serial2)
+
+    #define LED_TYPE LED_TYPE_SINGLE
+    #define LED_PIN 25
+    
+    #define Duty_Cycle_Invert 0  // 1 enables inverting the duty cycle signal
+
+    // Set channel function (Off, Servo, or Duty Cycle) 
+    #define Number_of_Channel_Outputs 12  // NOTE: PWM Channels must be set in Slice Pairs
+    uint16_t Channel_Config_Setting[Number_of_Channel_Outputs] = {
+      Channel_Set_To_Servo, // Channel 1 config setting
+      Channel_Set_To_Servo, // Channel 2 config setting
+      Channel_Set_To_Servo, // Channel 3 config setting
+      Channel_Set_To_Servo, // Channel 4 config setting
+      Channel_Set_To_Servo, // Channel 5 config setting
+      Channel_Set_To_Servo, // Channel 6 config setting
+      Channel_Set_To_DutyCycle, // Channel 7 config setting
+      Channel_Set_To_DutyCycle, // Channel 8 config setting
+      Channel_Set_To_DutyCycle, // Channel 9 config setting
+      Channel_Set_To_DutyCycle, // Channel 10 config setting
+      Channel_Set_To_DutyCycle, // Channel 11 config setting
+      Channel_Set_To_DutyCycle // Channel 12 config setting
+    };
+
+    // Set GPIO pin number to channel number
+    // NOTE: PWM Channels must be set in Slice Pairs
+    uint16_t Channel_GPIO_Mapping[Number_of_Channel_Outputs] ={
+      21, //GPIO 21, ELRS Channel 1
+      20, //GPIO 20, ELRS Channel 2
+      19, //GPIO 19, ELRS Channel 3
+      18, //GPIO 18, ELRS Channel 4
+      17, //GPIO 17, ELRS Channel 5
+      16, //GPIO 16, ELRS Channel 6
+      10, //GPIO 10, ELRS Channel 7
+      11, //GPIO 11, ELRS Channel 8
+      12, //GPIO 12, ELRS Channel 9
+      13, //GPIO 13, ELRS Channel 10
+      14, //GPIO 14, ELRS Channel 11
+      15  //GPIO 15, ELRS Channel 12
+    };
+
+    void boardSetup() {
+      pinMode(LED_PIN,OUTPUT);
+    }
+
+    void led_off() {
+      digitalWrite(LED_PIN, LOW);
+    }
+    
+    void led_on() {
+      digitalWrite(LED_PIN, HIGH);
+    }
+#endif
 #endif
