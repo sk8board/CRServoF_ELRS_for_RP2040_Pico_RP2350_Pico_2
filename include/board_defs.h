@@ -41,6 +41,9 @@ uint16_t Failsafe_Channel_Value [16] = {
     #define CRSF_TX 4  // physical 6 (UART1 == Serial2)
     #define CRSF_RX 5  // physical 7 (UART1 == Serial2)
 
+    // Set clock speed divider for servo PWM to 50hz
+    #define CPU_Clock_Divider 133.f  // RP2040 (133,000,000 hz / 133 = 1,000,000 hz)
+
     #define LED_TYPE LED_TYPE_SINGLE
     #define LED_PIN 25
     
@@ -98,6 +101,9 @@ uint16_t Failsafe_Channel_Value [16] = {
     #define UART_SELECT Serial2
     #define CRSF_TX 4  // (UART1 == Serial2)
     #define CRSF_RX 5  // (UART1 == Serial2)
+
+    // Set clock speed divider for servo PWM to 50hz
+    #define CPU_Clock_Divider 133.f  // RP2040 (133,000,000 hz / 133 = 1,000,000 hz)
 
     #define LED_TYPE LED_TYPE_RGB
     #define LED_PIN_R 18
@@ -160,6 +166,9 @@ uint16_t Failsafe_Channel_Value [16] = {
     #define UART_SELECT Serial2
     #define CRSF_TX 8  // (UART1 == Serial2)
     #define CRSF_RX 9  // (UART1 == Serial2)
+
+    // Set clock speed divider for servo PWM to 50hz
+    #define CPU_Clock_Divider 133.f  // RP2040 (133,000,000 hz / 133 = 1,000,000 hz)
 
     #define LED_TYPE LED_TYPE_NEOPIXEL
     #define LED_PIN 16
@@ -229,6 +238,9 @@ uint16_t Failsafe_Channel_Value [16] = {
     #define UART_SELECT Serial1
     #define CRSF_TX 0  // (GP0 == UART0 == Serial1) Problem with main.cpp which uses (UART1 == Serial2)?
     #define CRSF_RX 1  // (GP1 == UART0 == Serial1) Problem with main.cpp which uses (UART1 == Serial2)?
+
+    // Set clock speed divider for servo PWM to 50hz
+    #define CPU_Clock_Divider 133.f  // RP2040 (133,000,000 hz / 133 = 1,000,000 hz)
 
     // 1 NEOPixel - currently unused
     //#define LED_TYPE LED_TYPE_NEOPIXEL
@@ -310,6 +322,9 @@ uint16_t Failsafe_Channel_Value [16] = {
     #define CRSF_TX 4  // physical 6 (UART1 == Serial2)
     #define CRSF_RX 5  // physical 7 (UART1 == Serial2)
 
+    // Set clock speed divider for servo PWM to 50hz
+    #define CPU_Clock_Divider 133.f  // RP2040 (133,000,000 hz / 133 = 1,000,000 hz)
+
     #define LED_TYPE LED_TYPE_SINGLE
     #define LED_PIN 6  // Need to install an external LED since Pico W internal LED is difficult to access.
 
@@ -367,6 +382,9 @@ uint16_t Failsafe_Channel_Value [16] = {
     #define UART_SELECT Serial2
     #define CRSF_TX 4  // physical 6 (UART1 == Serial2)
     #define CRSF_RX 5  // physical 7 (UART1 == Serial2)
+
+    // Set clock speed divider for servo PWM to 50hz
+    #define CPU_Clock_Divider 150.f  // RP2350 (150,000,000 hz / 150 = 1,000,000 hz)
 
     #define LED_TYPE LED_TYPE_SINGLE
     #define LED_PIN 25
