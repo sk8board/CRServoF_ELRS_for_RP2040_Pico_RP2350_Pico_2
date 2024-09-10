@@ -10,7 +10,7 @@ If you don't want to bother with the recommended Windows configuration, then try
 
 ## Scope
 
-CRServoF_ELRS_for_RP2040_Pico is an RC receiver project for RC surface models and STEM robots that use ExpressLRS and EdgeTX.
+CRServoF_ELRS_for_RP2040_Pico_RP2350_Pico_2 is an RC receiver project for RC surface models and STEM robots that use ExpressLRS and EdgeTX.
 
 This RC receiver has 6 PWM servo channels and 6 duty cycle LED channels. EdgeTX will allow the user to customize how the LED channels can be used on the RC model
 
@@ -20,7 +20,7 @@ Another example is the duty cycle pins could be connected to a high current rela
 
 [Here are RC transmitters](https://www.radiomasterrc.com/collections/transmitter) that work with ExpressLRS (ELRS).
 
-CRServoF_ELRS_for_RP2040_Pico has a portion from https://github.com/CapnBry/CRServoF, (which is ExpressLRS (ELRS) to servos for STM32 micros) and another portion from https://github.com/mikeneiderhauser/CRSFJoystick, (which is ExpressLRS to USB video game dongle for RP2040 Pi Pico).
+CRServoF_ELRS_for_RP2040_Pico_RP2350_Pico_2 has a portion from https://github.com/CapnBry/CRServoF, (which is ExpressLRS (ELRS) to servos for STM32 micros) and another portion from https://github.com/mikeneiderhauser/CRSFJoystick, (which is ExpressLRS to USB video game dongle for RP2040 Pi Pico).
 
 ![ELRS Pico Receiver](https://github.com/sk8board/CRServoF_ELRS_for_RP2040_Pico/assets/96895142/c6fe0ac9-0438-4121-bc42-f2b662a814d6)
 
