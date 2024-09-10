@@ -308,12 +308,12 @@ void setup(){
 
       // Modify PWM config timing to 50hz
       if(Channel_Config_Setting[i] == Channel_Set_To_Servo){
-        pwm_set_clkdiv(slice_num[i], 133.f);  // set PWM clock to 1/133 of CPU clock speed for RP2040 or 1/150 for RP2350,  (133,000,000 / 133 = 1,000,000hz) for RP2040 or (150,000,000 / 150 = 1,000,000hz) for RP2350
+        pwm_set_clkdiv(slice_num[i], CPU_Clock_Divider);  // set PWM clock to 1/133 of CPU clock speed for RP2040 or 1/150 for RP2350,  (133,000,000 / 133 = 1,000,000hz) for RP2040 or (150,000,000 / 150 = 1,000,000hz) for RP2350
         pwm_set_wrap(slice_num[i], 20000);    // set PWM period to 20,000 cycles of PWM clock,  (1,000,000 / 20,000 = 50hz)
       }
       // Modify PWM config timing to 100hz
       if(Channel_Config_Setting[i] == Channel_Set_To_DutyCycle){
-        pwm_set_clkdiv(slice_num[i], 133.f);  // set PWM clock to 1/133 of CPU clock speed for RP2040 or 1/150 for RP2350,  (133,000,000 / 133 = 1,000,000hz) for RP2040 or (150,000,000 / 150 = 1,000,000hz) for RP2350
+        pwm_set_clkdiv(slice_num[i], CPU_Clock_Divider);  // set PWM clock to 1/133 of CPU clock speed for RP2040 or 1/150 for RP2350,  (133,000,000 / 133 = 1,000,000hz) for RP2040 or (150,000,000 / 150 = 1,000,000hz) for RP2350
         pwm_set_wrap(slice_num[i], 10000);    // set PWM period to 10,000 cycles of PWM clock,  (1,000,000 / 10,000 = 100hz)
       }
 
