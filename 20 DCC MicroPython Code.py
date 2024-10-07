@@ -1,14 +1,5 @@
-# RP2040 DMA Example with PIO
-# 
-# 1) For loop will feed state machine 0 one bit at a time.
-# 2) State machine 0 will pass the bit from TX FIFO to RX FIFO then set the IRQ 0 flag
-# 3) State machine 0 interrupt will trigger DMA 0
-# 4) DMA 0 will move the bit from state machine 0 TX FIFO to state machine RX FIFO
-# 5) State machine 1 will accumulate 32 bits then set the IRQ 1 flag
-# 6) State machine 1 interrupt will trigger DMA 1
-# 7) DMA 1 will move the 32-bit array to the variable "data"
-#
-# NOTE: if additional speed is required, then you can change the functions to use Viper code rather than MicroPython code
+# RP2040 DCC train decoder
+# Work In Progress. MicroPython code is too slow, Viper code is needed.
 
 from rp2 import PIO, asm_pio, StateMachine
 from machine import Pin
